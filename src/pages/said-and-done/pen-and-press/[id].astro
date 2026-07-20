@@ -1,0 +1,62 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('insights');
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base title={`${post.data.title} — Pen & Press | R&R Communications`} description={post.data.description}>
+  <article>
+    <section class="hero">
+      <span class="ghostamp" aria-hidden="true">&amp;</span>
+      <div class="wrap intro" style="padding-bottom:40px; max-width:860px">
+        <span class="kicker">
+          <a href="/said-and-done/pen-and-press" style="color:inherit">Pen &amp; Press</a>
+          · {post.data.type === 'press-release' ? 'Press release' : post.data.type === 'letter' ? 'A Note from Rika' : 'Perspective'}
+        </span>
+        <h1 style="font-size:clamp(30px,4.6vw,52px)">{post.data.title}</h1>
+        <p class="lede" style="font-size:15.5px">
+          {fmt(post.data.pubDate)}
+          {post.data.client && <> · for <b>{post.data.client}</b></>}
+        </p>
+      </div>
+    </section>
+    {post.data.image && (
+      <section style="padding-bottom:8px">
+        <div class="wrap" style="max-width:940px">
+          <figure class="phero">
+            <img src={post.data.image} alt={post.data.imageAlt || post.data.title} />
+            {post.data.imageAlt && <figcaption>{post.data.imageAlt}</figcaption>}
+          </figure>
+        </div>
+      </section>
+    )}
+    <section class="sect" style="padding-top:40px">
+      <div class="wrap prose rv in">
+        <Content />
+        {post.data.image2 && (
+          <figure class="phero" style="margin-top:36px">
+            <img src={post.data.image2} alt={post.data.image2Alt || post.data.title} loading="lazy" />
+            {post.data.image2Alt && <figcaption>{post.data.image2Alt}</figcaption>}
+          </figure>
+        )}
+      </div>
+    </section>
+  </article>
+
+  <section class="ctaband">
+    <span class="drift" aria-hidden="true">&amp;</span>
+    <div class="wrap rv">
+      <h2>Need this said<br />about <i>your</i> brand?</h2>
+      <p>Written, placed, and measured — communication with purpose.</p>
+      <a class="btn teal" href="/you-and-us">Talk to R&amp;R <span class="arr">→</span></a>
+    </div>
+  </section>
+</Base>

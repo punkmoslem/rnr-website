@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+
+const capabilities = [
+  {
+    icon: 'briefcase' as const,
+    name: 'Client Service & Account Management',
+    text: 'Senior account leads who own the relationship end to end — translating business objectives into communication programmes, keeping every workstream on schedule, and reporting against outcomes rather than activity. Continuity matters: the people who pitch your business are the people who run it.',
+  },
+  {
+    icon: 'newspaper' as const,
+    name: 'Media Relations & Media Analysis',
+    text: 'Specialists with working relationships across Indonesia’s national, regional and trade media, backed by a dedicated analysis function. They know which desk wants which story — and their monitoring and measurement work turns coverage into insight the next campaign can use.',
+  },
+  {
+    icon: 'lightbulb' as const,
+    name: 'Strategic & Creative Communications',
+    text: 'The strategists and writers who shape positioning, narrative and campaign ideas — creative enough to earn attention, disciplined enough to stay true to the brand and the facts. Every big idea leaves this team with a rationale attached.',
+  },
+];
+
+// Leadership bios to be supplied by R&R before launch.
+const leaders = [1, 2, 3];
+---
+
+<Base
+  title="Our People — R&R Communications"
+  description="The capability areas behind R&R Communications: client service and account management, media relations and analysis, and strategic and creative communications."
+  path="/team"
+>
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Our People</span>
+      <h1>Senior judgement, in every room</h1>
+      <p class="lede">
+        R&R is deliberately structured around capability, not hierarchy. Three
+        functions work as one team on every engagement — so the strategy, the media
+        work and the client relationship never lose sight of each other.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">How we're organised</span>
+      <h2>Three capabilities, one team</h2>
+      <div class="grid grid--3" style="margin-top: 2.5rem;" data-reveal-stagger>
+        {
+          capabilities.map((c) => (
+            <article class="card">
+              <span class="card__icon"><Icon name={c.icon} /></span>
+              <h3>{c.name}</h3>
+              <p>{c.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Leadership</span>
+      <h2>The people who lead the work</h2>
+      <p class="lede">
+        A leadership team renewed through 2020–2024, carrying the firm's 26-year
+        legacy into its next chapter.
+      </p>
+      <div class="grid grid--3" style="margin-top: 2.5rem;">
+        {
+          leaders.map(() => (
+            <article class="card leader-card">
+              <div class="leader-card__photo" role="img" aria-label="Portrait placeholder">
+                <span>Photo</span>
+              </div>
+              <h3>[PLACEHOLDER — confirm with R&R]</h3>
+              <p class="leader-card__role">[PLACEHOLDER — role/title]</p>
+              <p>[PLACEHOLDER — short bio, 2–3 sentences]</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Meet the team behind the work"
+    body="The consultants you meet in the first conversation are the consultants who will run your programme."
+  />
+</Base>
+
+<style>
+  .leader-card__photo {
+    aspect-ratio: 4 / 5;
+    background: var(--cream-dark);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .leader-card__role {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 0.75rem;
+  }
+</style>

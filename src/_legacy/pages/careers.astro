@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+
+const values = [
+  {
+    name: 'Work is Worship, Work with Heart',
+    text: 'Our founding philosophy since 2010. We take the work seriously because it deserves it — and we look after the people doing it.',
+  },
+  {
+    name: 'Learn from the best briefs in the market',
+    text: 'Our clients include some of the most demanding multinational brands in Indonesia. The work is real, the standards are high, and the learning curve is steep in the best way.',
+  },
+  {
+    name: 'Grow with the firm',
+    text: 'The leadership regeneration of 2020–2024 was built on promoting and developing our own people. Talent development is a mission pillar, not a poster.',
+  },
+];
+---
+
+<Base
+  title="Join the Team — Careers at R&R Communications"
+  description="Build a career in public relations and strategic communications at R&R Communications, Jakarta — a 26-year consultancy that develops its own talent."
+  path="/careers"
+>
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Join the Team</span>
+      <h1>Do the best work of your career here</h1>
+      <p class="lede">
+        R&R Communications has spent twenty-six years proving that an Indonesian
+        consultancy can hold its own against any network agency. We did it by hiring
+        people who care about the craft — and giving them room to grow.
+      </p>
+      <div class="btn-row">
+        <a href="#roles" class="btn btn--primary">See Open Roles</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Why R&R</span>
+      <h2>What it's like to work here</h2>
+      <div class="grid grid--3" style="margin-top: 2.5rem;">
+        {
+          values.map((v) => (
+            <article class="card">
+              <h3>{v.name}</h3>
+              <p>{v.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roles">
+    <div class="container">
+      <span class="eyebrow">Open roles</span>
+      <h2>Current openings</h2>
+      <div class="card roles-card">
+        <p>
+          <strong>[PLACEHOLDER — confirm with R&R: current open roles.]</strong>
+        </p>
+        <p>
+          No listed openings at the moment? We still want to hear from strong
+          candidates in client service, media relations and strategic communications.
+          Send your CV and a short note on the work you're proudest of.
+        </p>
+        <div class="btn-row">
+          <a href="/contact" class="btn btn--primary">Introduce Yourself</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .roles-card {
+    margin-top: 2.5rem;
+    max-width: 44rem;
+  }
+
+  .roles-card p + p {
+    margin-top: 1rem;
+  }
+</style>

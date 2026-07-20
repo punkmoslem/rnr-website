@@ -1,0 +1,162 @@
+---
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <a href="/" class="site-footer__logo" aria-label="R&R Communications — home">
+        <Logo variant="light" />
+      </a>
+      <p class="site-footer__tagline">Communication with Purpose.</p>
+      <p class="site-footer__legal-name">PT Komunika Pratama Reksa</p>
+    </div>
+
+    <nav aria-label="Footer">
+      <h2 class="site-footer__heading">Explore</h2>
+      <ul>
+        <li><a href="/about">Our Story</a></li>
+        <li><a href="/services">Expertise</a></li>
+        <li><a href="/case-studies">Purpose in Action</a></li>
+        <li><a href="/team">Our People</a></li>
+        <li><a href="/insights">Perspectives</a></li>
+        <li><a href="/careers">Join the Team</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="site-footer__heading">Start a Conversation</h2>
+      <ul>
+        <li>Jl. Bungur No. 88, Kebayoran Lama,<br />Jakarta Selatan, Indonesia</li>
+        <li><a href="tel:+62217263109">021-726-3109</a></li>
+        <li><a href="https://wa.me/628179206683" target="_blank" rel="noopener">WhatsApp 0817-920-6683</a></li>
+        <li>
+          <a href="https://instagram.com/PLACEHOLDER" target="_blank" rel="noopener"
+            >Instagram <span class="ph">[PLACEHOLDER — confirm handle]</span></a
+          >
+        </li>
+        <li><a href="/contact" class="site-footer__cta">Book a Consultation →</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Oversized wordmark, Together-Group style sign-off -->
+  <div class="container site-footer__wordmark" aria-hidden="true">
+    <span translate="no">R<span class="amp">&amp;</span>R</span>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>© {year} R&R Communications. All rights reserved.</p>
+    <p>Jakarta-based, serving corporate clients across Indonesia since 2000.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy-deep);
+    color: #c4d2da;
+    padding-block: 4rem 2rem;
+    font-size: 0.9375rem;
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+    padding-bottom: 3rem;
+  }
+
+  @media (min-width: 720px) {
+    .site-footer__grid {
+      grid-template-columns: 1.4fr 1fr 1.4fr;
+    }
+  }
+
+  .site-footer__logo {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .site-footer__tagline {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    color: var(--white);
+  }
+
+  .site-footer__legal-name {
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    color: #8fa5b1;
+  }
+
+  .site-footer__heading {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1rem;
+  }
+
+  .site-footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.625rem;
+  }
+
+  .site-footer a {
+    color: #c4d2da;
+    text-decoration: none;
+  }
+
+  .site-footer a:hover {
+    color: var(--white);
+    text-decoration: underline;
+  }
+
+  .site-footer__cta {
+    font-weight: 600;
+    color: var(--white) !important;
+  }
+
+  .ph {
+    font-size: 0.75rem;
+    color: #8fa5b1;
+  }
+
+  .site-footer__wordmark {
+    overflow: hidden;
+    line-height: 0.78;
+    margin-top: 1rem;
+  }
+
+  .site-footer__wordmark span {
+    font-family: var(--font-logo);
+    font-weight: 700;
+    font-size: clamp(6rem, 22vw, 17rem);
+    letter-spacing: -0.06em;
+    color: rgba(255, 255, 255, 0.1);
+    user-select: none;
+  }
+
+  .site-footer__wordmark .amp {
+    color: rgba(18, 167, 156, 0.28);
+    margin-inline: -0.05em;
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 1.5rem;
+    font-size: 0.8125rem;
+    color: #8fa5b1;
+  }
+</style>

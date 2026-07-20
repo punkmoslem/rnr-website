@@ -1,0 +1,175 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Seen & Said — Free AI Visibility Check | R&R Communications"
+  description="When AI answers, does it say your name? Run a free check of your brand's visibility across ChatGPT, Gemini and Claude — by R&R Communications."
+  gate={false}
+>
+  <section class="hero">
+    <div class="field"><canvas id="field"></canvas></div>
+    <span class="ghostamp" aria-hidden="true">&amp;</span>
+    <div class="wrap intro" style="padding-bottom:56px">
+      <span class="kicker">Seen &amp; Said · AI visibility checker</span>
+      <h1>When AI answers,<br />does it say <span class="bigand">your</span> name?</h1>
+      <p class="lede">Search has changed. Your audience doesn't scroll ten blue links —
+      they ask ChatGPT, Gemini, or Claude, and act on the answer. AI Visibility Checker
+      measures how often that answer is <em>you</em>.</p>
+      <div class="cta-row">
+        <a class="btn teal" href="#check">Run the free check <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sect tight">
+    <div class="wrap">
+      <div class="steps3 rv-stagger" style="margin-top:0">
+        <div class="s3"><h3>We ask what your buyers ask</h3><p>A set of real recommendation and comparison questions for your industry, run across ChatGPT, Gemini and Claude.</p></div>
+        <div class="s3"><h3>We measure the answers</h3><p>How often you're named, how you're described, and your share of voice against the competitors you actually lose deals to.</p></div>
+        <div class="s3"><h3>You get the report — free</h3><p>A readable share-of-voice report in your inbox, with the three moves that would improve your standing. No obligation.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE CHECKER ============ -->
+  <section class="toolband" id="check">
+    <div class="wrap sect">
+      <div class="cols">
+        <div class="tcopy rv">
+          <span class="kicker">Free teaser scan</span>
+          <h2 class="display" style="font-size:clamp(26px,3.6vw,42px)">Try it now</h2>
+          <p class="lede" style="font-size:15.5px">Type your brand/company/name. We'll run a quick sample scan —
+          the full multi-model report follows by email.</p>
+          <form class="tform" id="scanForm">
+            <input type="text" id="brandInput" placeholder="Your brand name" aria-label="Your brand name" required />
+            <button class="btn teal" type="submit" id="scanBtn">Run the check</button>
+          </form>
+          <div id="modelRow" style="display:flex; gap:10px; margin-top:22px; flex-wrap:wrap" hidden>
+            <span class="ten" data-chip>ChatGPT <b data-state>waiting…</b></span>
+            <span class="ten" data-chip>Gemini <b data-state>waiting…</b></span>
+            <span class="ten" data-chip>Claude <b data-state>waiting…</b></span>
+          </div>
+          <p class="tnote">Teaser scans are sampled &amp; rate-limited. The complete report covers
+          24 prompts × 3 models with competitor share of voice.</p>
+        </div>
+
+        <div class="tdemo">
+          <div class="gauge scanline" id="scanCard" style="min-height:230px">
+            <div class="gt">AI share of voice</div>
+            <div class="gbrand" id="gaugeBrand">Awaiting your brand/company/name…</div>
+            <div id="gaugeBody" hidden>
+              <div class="grow"><span class="gl" id="gYou">You</span><div class="gbar"><i id="bYou"></i></div><span class="gv" id="vYou">–</span></div>
+              <div class="grow"><span class="gl">Rival A</span><div class="gbar dim"><i id="bA"></i></div><span class="gv" id="vA">–</span></div>
+              <div class="grow"><span class="gl">Rival B</span><div class="gbar dim"><i id="bB"></i></div><span class="gv" id="vB">–</span></div>
+            </div>
+            <div class="gfoot" id="gaugeFoot">Sample scan · ChatGPT · Gemini · Claude</div>
+          </div>
+
+          <form class="cform" id="emailGate" hidden style="margin-top:18px; background:#fff; border:1px solid var(--line); border-radius:18px; padding:22px 24px">
+            <p style="font-size:14px; color:var(--soft)"><b style="color:var(--ink)">Get the full report, free.</b> 24 prompts × 3 models, competitor share of voice, and three concrete recommendations.</p>
+            <label for="gateEmail">Work email</label>
+            <input id="gateEmail" type="email" required placeholder="you@company.co.id" />
+            <button class="btn teal" type="submit" style="margin-top:18px; width:100%; justify-content:center">Email me the full report</button>
+          </form>
+          <p class="tnote" id="gateDone" hidden style="background:var(--teal-wash); border-radius:12px; padding:14px 18px; color:var(--ink)">
+            <b>On its way.</b> Your full Seen &amp; Said report will arrive within one working day —
+            and a real person from R&amp;R will be on the other end of it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ctaband">
+    <span class="drift" aria-hidden="true">&amp;</span>
+    <div class="wrap rv">
+      <h2>Being seen is a start.<br />Being <i>believed</i> is the job.</h2>
+      <p>AI visibility is one connection among many. We manage them all.</p>
+      <a class="btn teal" href="/you-and-us">Talk to R&amp;R <span class="arr">→</span></a>
+    </div>
+  </section>
+
+  <script>
+    // Teaser scan — client-side demo choreography.
+    // PRODUCTION: point SCAN_ENDPOINT at the ai-visibility-checker public teaser API
+    // and replace runMockScan() with a fetch; keep the same UI states.
+    const SCAN_ENDPOINT: string | null = null;
+
+    const form = document.getElementById('scanForm') as HTMLFormElement;
+    const input = document.getElementById('brandInput') as HTMLInputElement;
+    const modelRow = document.getElementById('modelRow')!;
+    const chips = [...document.querySelectorAll<HTMLElement>('[data-chip] [data-state]')];
+    const gaugeBrand = document.getElementById('gaugeBrand')!;
+    const gaugeBody = document.getElementById('gaugeBody')!;
+    const gaugeFoot = document.getElementById('gaugeFoot')!;
+    const scanCard = document.getElementById('scanCard')!;
+    const emailGate = document.getElementById('emailGate') as HTMLFormElement;
+    const gateDone = document.getElementById('gateDone')!;
+
+    // Prefill from ?brand= (arrives from the homepage teaser / first-visit gate)
+    const pre = new URLSearchParams(location.search).get('brand');
+    if (pre) {
+      input.value = pre;
+      document.getElementById('check')?.scrollIntoView();
+      setTimeout(() => form.requestSubmit(), 900);
+    }
+
+    // deterministic pseudo-score from the brand string (demo only)
+    const seedScore = (s: string, lo: number, hi: number, salt: number) => {
+      let h = salt;
+      for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) % 997;
+      return lo + (h % (hi - lo));
+    };
+
+    let running = false;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (running) return;
+      const brand = input.value.trim();
+      if (!brand) return;
+      running = true;
+
+      // reset UI
+      modelRow.hidden = false;
+      gaugeBody.hidden = true;
+      emailGate.hidden = true;
+      gateDone.hidden = true;
+      scanCard.classList.add('scanline');
+      gaugeBrand.textContent = `Scanning "${brand}"…`;
+      gaugeFoot.textContent = 'Asking 6 sample questions per model…';
+      chips.forEach((c) => { c.textContent = 'waiting…'; c.style.color = ''; });
+
+      // choreograph the three models finishing
+      chips.forEach((c, i) => {
+        setTimeout(() => { c.textContent = 'asking…'; }, 500 + i * 850);
+        setTimeout(() => { c.textContent = '✓ answered'; c.style.color = 'var(--teal)'; }, 1500 + i * 850);
+      });
+
+      setTimeout(() => {
+        const you = seedScore(brand, 22, 74, 7);
+        const a = seedScore(brand, 15, Math.max(you - 4, 20), 13);
+        const b = seedScore(brand, 8, Math.max(a - 3, 14), 29);
+        scanCard.classList.remove('scanline');
+        gaugeBrand.textContent = `${brand} & rivals — sample result`;
+        gaugeFoot.textContent = 'Sample scan · ChatGPT · Gemini · Claude — full report covers 24 prompts';
+        gaugeBody.hidden = false;
+        (document.getElementById('gYou')!).textContent = brand.length > 9 ? 'You' : brand;
+        const set = (barId: string, valId: string, v: number) => {
+          const bar = document.getElementById(barId)!; const val = document.getElementById(valId)!;
+          bar.style.width = '0'; val.textContent = v + '%';
+          requestAnimationFrame(() => setTimeout(() => { bar.style.width = v + '%'; }, 60));
+        };
+        set('bYou', 'vYou', you); set('bA', 'vA', a); set('bB', 'vB', b);
+        setTimeout(() => { emailGate.hidden = false; }, 900);
+        running = false;
+      }, 4200);
+    });
+
+    emailGate.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // PRODUCTION: POST { brand, email } to the ai-visibility-checker lead endpoint.
+      emailGate.hidden = true;
+      gateDone.hidden = false;
+    });
+  </script>
+</Base>

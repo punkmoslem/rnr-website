@@ -1,0 +1,199 @@
+---
+// "Find your &" — a 60-second quiz that tells confused visitors which
+// R&R service fits their situation, then routes them to a CTA.
+// Auto-opens once per visitor (2nd pageview OR 45s dwell), never while the
+// Seen & Said gate is up, never on /seen-and-said or /you-and-us.
+// Always reachable afterwards via the floating pill.
+---
+<button class="fab" id="quizFab" hidden>
+  Not sure what you need? <b>60-sec quiz</b>
+</button>
+
+<div class="gate quiz" id="quiz" role="dialog" aria-modal="true" aria-labelledby="quizTitle" hidden>
+  <div class="veil" data-quiz-close></div>
+  <div class="card">
+    <span class="gamp" aria-hidden="true">&amp;</span>
+    <button class="x" data-quiz-close aria-label="Close">✕</button>
+
+    <div id="quizIntro">
+      <span class="gk">Find your &amp; — a 60-second quiz</span>
+      <h2 id="quizTitle">"How can a PR consultant<br />actually help <i>me</i>?"</h2>
+      <p>Fair question — everyone asks it. Answer four quick ones and we'll give you a
+      preliminary read on which connection your brand needs most.</p>
+      <div style="display:flex; gap:12px; align-items:center; margin-top:24px; flex-wrap:wrap">
+        <button class="btn teal" id="quizStart">Let's find out <span class="arr">→</span></button>
+        <button class="skip" data-quiz-close style="margin-top:0">Maybe later</button>
+      </div>
+    </div>
+
+    <div id="quizQ" hidden>
+      <div class="qdots" aria-hidden="true">
+        <span class="qdot on"></span><span class="qdot"></span><span class="qdot"></span><span class="qdot"></span>
+      </div>
+      <h2 class="qtitle" id="qTitle"></h2>
+      <div class="qopts" id="qOpts"></div>
+    </div>
+
+    <div id="quizR" hidden>
+      <span class="gk">Your preliminary read</span>
+      <h2 id="rTitle"></h2>
+      <p id="rBody"></p>
+      <div style="display:flex; gap:12px; margin-top:26px; flex-wrap:wrap">
+        <a class="btn teal" href="/you-and-us">Talk it through with us <span class="arr">→</span></a>
+        <a class="btn ghost" id="rLink" href="/ways-and-means">See how we do it</a>
+      </div>
+      <button class="skip" id="quizRestart">Start over</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const quiz = document.getElementById('quiz')!;
+  const fab = document.getElementById('quizFab') as HTMLButtonElement;
+  const intro = document.getElementById('quizIntro')!;
+  const qPane = document.getElementById('quizQ')!;
+  const rPane = document.getElementById('quizR')!;
+  const qTitle = document.getElementById('qTitle')!;
+  const qOpts = document.getElementById('qOpts')!;
+  const dots = [...quiz.querySelectorAll('.qdot')];
+
+  type Svc = 'M' | 'C' | 'X' | 'S';
+  const QS: { q: string; opts: [string, Svc][] }[] = [
+    { q: 'What keeps you up at night?', opts: [
+      ['Nobody is telling our story', 'M'],
+      ["Younger audiences don't know we exist", 'C'],
+      ['People are saying the wrong things about us', 'X'],
+      ['AI and search never mention us', 'S'],
+    ]},
+    { q: 'Where do the people you need make up their minds?', opts: [
+      ['News media & publications', 'M'],
+      ['Social feeds & creators', 'C'],
+      ['Rumor, group chats & word of mouth', 'X'],
+      ['ChatGPT, Gemini & Google', 'S'],
+    ]},
+    { q: 'Six months from now, success looks like…', opts: [
+      ['Front pages & serious coverage', 'M'],
+      ['Buzz, engagement & new fans', 'C'],
+      ['Calm restored, trust rebuilt', 'X'],
+      ['Being the answer AI recommends', 'S'],
+    ]},
+    { q: 'And how urgent is it?', opts: [
+      ['Building for the long term', 'M'],
+      ['A big moment is coming up', 'C'],
+      ["It's on fire right now", 'X'],
+      ['Honestly? Just exploring', 'S'],
+    ]},
+  ];
+  const RESULTS: Record<Svc, { t: string; b: string; href: string }> = {
+    M: { t: 'You need Brand & Media.', href: '/ways-and-means#media',
+      b: 'Your story deserves editorial weight — journalists telling it because it’s worth telling. That’s media management: press strategy, relationships, and 26 years of front pages. It’s where R&R started.' },
+    C: { t: 'You need Brand & Creators.', href: '/ways-and-means#creators',
+      b: 'The audience you want lives in feeds, and they trust people, not adverts. Influencer mapping, KOL relations, and campaigns that sound human — we’ve managed 40,000+ creator collaborations.' },
+    X: { t: 'You need Brand & Crisis.', href: '/ways-and-means#crisis',
+      b: 'When the story turns, speed and calm decide the outcome. Problem-based analysis, strategy, and real-time response — straight answers from a team that’s been in the room before. Don’t wait: talk to us today.' },
+    S: { t: 'Start with Seen & Said.', href: '/seen-and-said',
+      b: 'Before spending anything, measure: when AI is asked about your industry, are you the answer? Run our free visibility check — the report shows exactly where you stand, and what to do about it.' },
+  };
+
+  let step = 0;
+  const tally: Record<Svc, number> = { M: 0, C: 0, X: 0, S: 0 };
+
+  const renderQ = () => {
+    dots.forEach((d, i) => d.classList.toggle('on', i <= step));
+    qTitle.textContent = QS[step].q;
+    qOpts.innerHTML = '';
+    QS[step].opts.forEach(([label, svc]) => {
+      const b = document.createElement('button');
+      b.className = 'qopt';
+      b.textContent = label;
+      b.addEventListener('click', () => {
+        tally[svc]++;
+        step++;
+        if (step < QS.length) {
+          qPane.classList.remove('qin'); void (qPane as HTMLElement).offsetWidth;
+          qPane.classList.add('qin');
+          renderQ();
+        } else {
+          finish();
+        }
+      });
+      qOpts.appendChild(b);
+    });
+  };
+
+  const finish = () => {
+    // crisis outranks media outranks creators outranks exploring
+    const order: Svc[] = ['X', 'M', 'C', 'S'];
+    const best = order.reduce((a, b) => (tally[b] > tally[a] ? b : a));
+    const r = RESULTS[best];
+    (document.getElementById('rTitle')!).textContent = r.t;
+    (document.getElementById('rBody')!).textContent = r.b;
+    (document.getElementById('rLink') as HTMLAnchorElement).href = r.href;
+    qPane.hidden = true;
+    rPane.hidden = false;
+    localStorage.setItem('rnr-quiz-done', '1');
+  };
+
+  const reset = () => {
+    step = 0; (Object.keys(tally) as Svc[]).forEach((k) => (tally[k] = 0));
+    intro.hidden = false; qPane.hidden = true; rPane.hidden = true;
+  };
+
+  const openQuiz = () => {
+    reset();
+    quiz.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => quiz.classList.add('show')));
+    localStorage.setItem('rnr-quiz-shown', '1');
+  };
+  const closeQuiz = () => {
+    quiz.classList.remove('show');
+    setTimeout(() => { quiz.hidden = true; }, 500);
+  };
+
+  document.getElementById('quizStart')?.addEventListener('click', () => {
+    intro.hidden = true; qPane.hidden = false; qPane.classList.add('qin');
+    renderQ();
+  });
+  document.getElementById('quizRestart')?.addEventListener('click', reset);
+  quiz.querySelectorAll('[data-quiz-close]').forEach((el) => el.addEventListener('click', closeQuiz));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && quiz.classList.contains('show')) closeQuiz();
+  });
+  fab.addEventListener('click', openQuiz);
+
+  // ---- triggers ----
+  const path = location.pathname;
+  const excluded = path.startsWith('/seen-and-said') || path.startsWith('/you-and-us');
+
+  // floating pill: appears after 10s or 35% scroll
+  let fabShown = false;
+  const showFab = () => {
+    if (fabShown) return; fabShown = true;
+    fab.hidden = false;
+    requestAnimationFrame(() => fab.classList.add('on'));
+  };
+  setTimeout(showFab, 10000);
+  addEventListener('scroll', () => {
+    const h = document.documentElement;
+    if (scrollY > (h.scrollHeight - innerHeight) * 0.35) showFab();
+  }, { passive: true });
+
+  // auto-open once: 2nd pageview OR 45s dwell — and only when the
+  // first-visit gate isn't in play
+  const pv = Number(sessionStorage.getItem('rnr-pv') || '0') + 1;
+  sessionStorage.setItem('rnr-pv', String(pv));
+  const gateBusy = () => {
+    const g = document.getElementById('gate');
+    return !!g && !g.hidden;
+  };
+  const canAuto = () =>
+    !excluded &&
+    !localStorage.getItem('rnr-quiz-shown') &&
+    !localStorage.getItem('rnr-quiz-done') &&
+    !gateBusy() &&
+    quiz.hidden;
+  if (pv >= 2) {
+    setTimeout(() => { if (canAuto()) openQuiz(); }, 2500);
+  }
+  setTimeout(() => { if (canAuto()) openQuiz(); }, 45000);
+</script>

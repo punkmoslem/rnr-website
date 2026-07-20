@@ -1,0 +1,52 @@
+---
+// First-visit landing overlay for the Seen & Said AI Visibility Checker.
+// Dismissible (X / "maybe later" / Esc / backdrop). Remembered in localStorage.
+---
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" hidden>
+  <div class="veil" data-gate-close></div>
+  <div class="card">
+    <span class="gamp" aria-hidden="true">&amp;</span>
+    <button class="x" data-gate-close aria-label="Close">✕</button>
+    <span class="gk">Seen &amp; Said — free AI visibility check</span>
+    <h2 id="gateTitle">When AI answers,<br />does it say <i>your</i> name?</h2>
+    <p>Your next client asks ChatGPT, Gemini, or Claude for a recommendation.
+    Find out — free — how often your brand is the answer.</p>
+    <form class="tform" id="gateForm">
+      <input type="text" name="brand" placeholder="Your brand name" aria-label="Your brand name" required />
+      <button class="btn teal" type="submit">Check my brand <span class="arr">→</span></button>
+    </form>
+    <button class="skip" data-gate-close>Maybe later — take me to the site</button>
+  </div>
+</div>
+
+<script>
+  const gate = document.getElementById('gate') as HTMLElement | null;
+  if (gate) {
+    const KEY = 'rnr-gate-seen';
+    const closeGate = () => {
+      gate.classList.remove('show');
+      localStorage.setItem(KEY, '1');
+      setTimeout(() => { gate.hidden = true; }, 500);
+    };
+    const suppressed = new URLSearchParams(location.search).has('nogate');
+    if (!localStorage.getItem(KEY) && !suppressed) {
+      setTimeout(() => {
+        gate.hidden = false;
+        requestAnimationFrame(() => requestAnimationFrame(() => gate.classList.add('show')));
+      }, 1400);
+    }
+    gate.querySelectorAll('[data-gate-close]').forEach((el) =>
+      el.addEventListener('click', closeGate)
+    );
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && gate.classList.contains('show')) closeGate();
+    });
+    const form = document.getElementById('gateForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const brand = (new FormData(form).get('brand') as string || '').trim();
+      localStorage.setItem(KEY, '1');
+      window.location.href = '/seen-and-said' + (brand ? `?brand=${encodeURIComponent(brand)}` : '');
+    });
+  }
+</script>

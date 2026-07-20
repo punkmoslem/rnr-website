@@ -1,0 +1,567 @@
+---
+import Base from '../layouts/Base.astro';
+import Stats from '../components/Stats.astro';
+import CtaBand from '../components/CtaBand.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+import { caseStudies } from '../data/caseStudies';
+
+const sectors = [
+  'FMCG',
+  'Technology',
+  'Healthcare & Wellness',
+  'Lifestyle',
+  'Retail',
+  'Food & Beverage',
+];
+
+// Client names pending per-client confirmation for public display.
+const clients = [
+  'MSD Indonesia',
+  'Bayer',
+  'JEC Eye Hospitals & Clinics',
+  'Combiphar',
+  'Frisian Flag',
+  'Samsung',
+  'Bosch',
+  'SKF',
+  'ASUS',
+  'Paragon',
+  'PZ Cussons',
+  'ISUZU',
+];
+---
+
+<Base
+  title="R&R Communications — PR Consultancy Jakarta | Communication with Purpose"
+  description="R&R Communications is a Jakarta-based public relations and communications consultancy serving corporate clients across Indonesia — 25+ years, 2,000+ projects, 150+ brands."
+  path="/"
+>
+  <!-- Hero -->
+  <section class="section hero">
+    <div class="container hero__grid">
+      <div data-reveal>
+        <span class="eyebrow">Jakarta · Serving brands nationwide since 2000</span>
+        <h1>Communication with&nbsp;Purpose</h1>
+        <p class="hero__stat-line">
+          25+ years in business · 2,000+ projects managed · 150+ brands served
+        </p>
+        <p class="lede">
+          R&R Communications is an Indonesian public relations consultancy that helps
+          corporates and brands strengthen reputation, reach the audiences that matter,
+          and communicate with clarity — in calm markets and in crisis.
+        </p>
+        <div class="btn-row">
+          <a href="/contact" class="btn btn--primary">Book a Consultation</a>
+          <a href="/case-studies" class="btn btn--ghost">See Our Work</a>
+        </div>
+      </div>
+      <div class="hero__art" data-reveal>
+        <HeroVisual />
+      </div>
+    </div>
+  </section>
+
+  <!-- Manifesto statement -->
+  <section class="section manifesto">
+    <div class="container" data-reveal>
+      <p class="manifesto__text">
+        We blend <em>strategy</em>, <em>storytelling</em> and long-standing
+        <em>media relationships</em> to build reputations that endure — for
+        Indonesia's leading corporates and brands.
+      </p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Who we are</span>
+      <h2>Twenty-six years of building reputations across Indonesia</h2>
+      <p class="lede">
+        Founded in Jakarta in 2000 and incorporated as PT Komunika Pratama Reksa, R&R
+        Communications has grown from a home-office consultancy into one of Indonesia's
+        most experienced independent PR firms — trusted by leading multinational FMCG,
+        technology and healthcare brands, some for more than a decade at a stretch.
+        In 2025 we renewed our identity: new logo, new spirit, same legacy.
+      </p>
+      <div class="btn-row">
+        <a href="/about" class="btn btn--ghost">Read Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services overview -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Expertise</span>
+      <h2>What we do</h2>
+      <div class="grid grid--3" style="margin-top: 2.5rem;" data-reveal-stagger>
+        {
+          services.map((s) => (
+            <article class="card">
+              <span class="card__icon"><Icon name={s.icon} /></span>
+              <h3>{s.name}</h3>
+              <p>{s.summary}</p>
+              <p style="margin-top: 1rem;">
+                <a href={`/services#${s.slug}`}>Explore {s.name.split(' ')[0].toLowerCase()} services →</a>
+              </p>
+            </article>
+          ))
+        }
+        <article class="card card--cta">
+          <h3>Not sure where to start?</h3>
+          <p>
+            Most engagements begin with a conversation about where your reputation
+            stands today.
+          </p>
+          <p style="margin-top: 1rem;">
+            <a href="/contact">Start a Conversation →</a>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results / proof -->
+  <section class="section section--dark has-watermark">
+    <div class="container">
+      <span class="eyebrow">Track record</span>
+      <h2>Results, in numbers</h2>
+      <p class="lede" style="margin-bottom: 3rem;">
+        Verified figures from twenty-six years of client work across Indonesia.
+      </p>
+      <Stats />
+      <div class="awards">
+        <h3>Recognised by the industry</h3>
+        <ul>
+          <li>The Best Branding Agency — PR Agency Competency, 2021</li>
+          <li>PR Agency of the Year, 2018</li>
+          <li>The Best Marketing PR Program — Samsung Galaxy S9/S9+ Launch, 2018</li>
+          <li>Indonesia PR of the Year — Creative PR Program, Beiersdorf "PS. I Love Mama", 2016</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Purpose in Action carousel -->
+  <section class="section cs-preview">
+    <div class="container">
+      <div class="cs-preview__head">
+        <div>
+          <span class="eyebrow">Purpose in Action</span>
+          <h2>Selected work</h2>
+        </div>
+        <div class="cs-preview__nav">
+          <button type="button" class="carousel-btn" data-carousel-prev aria-label="Previous case studies">←</button>
+          <button type="button" class="carousel-btn" data-carousel-next aria-label="Next case studies">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-wrap">
+      <ul class="carousel container" role="list" data-carousel>
+        {
+          caseStudies.map((cs) => (
+            <li class="carousel__card">
+              <a href={`/case-studies#${cs.slug}`}>
+                <span class="carousel__sector">{cs.sector}</span>
+                <span class="carousel__client">{cs.client}</span>
+                <span class="carousel__title">{cs.title}</span>
+                <span class="carousel__metric">
+                  <strong>{cs.metrics[0].value}</strong> {cs.metrics[0].label.toLowerCase()}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+        <li class="carousel__card carousel__card--all">
+          <a href="/case-studies">
+            <span class="carousel__title">See all case studies</span>
+            <span class="carousel__metric">Purpose in Action →</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Sectors -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Where we work</span>
+      <h2>Sectors we serve</h2>
+      <p class="lede">
+        We focus on consumer and corporate brands where reputation drives commercial
+        outcomes.
+      </p>
+      <ol class="sector-grid" role="list" data-reveal-stagger>
+        {
+          sectors.map((s, i) => (
+            <li class="sector-grid__item">
+              <span class="sector-grid__num" aria-hidden="true">0{i + 1}</span>
+              <span class="sector-grid__name">{s}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Client marquee -->
+  <section class="section section--tight client-band">
+    <div class="container">
+      <span class="eyebrow">Trusted by</span>
+      <ul class="visually-hidden" aria-label="Selected clients">
+        {clients.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        {[...clients, ...clients].map((c) => <span class="marquee__item">{c}</span>)}
+      </div>
+    </div>
+    <div class="container">
+      <p class="client-strip__note">
+        Selected current and past clients. Several relationships have run continuously
+        for eight years or more.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(4rem, 9vw, 7.5rem);
+    background:
+      radial-gradient(52rem 34rem at 88% 0%, rgba(18, 167, 156, 0.07), transparent 65%),
+      radial-gradient(40rem 30rem at 0% 100%, rgba(47, 87, 110, 0.05), transparent 60%);
+  }
+
+  .hero__grid {
+    display: grid;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  @media (min-width: 920px) {
+    .hero__grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4rem;
+    }
+  }
+
+  @media (max-width: 919px) {
+    .hero__art {
+      display: none;
+    }
+  }
+
+  .hero h1 {
+    max-width: 14ch;
+  }
+
+  .hero__stat-line {
+    margin-top: 1.5rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+  }
+
+  .card--cta {
+    background: var(--cream-dark);
+    border-style: dashed;
+  }
+
+  /* Manifesto ---------------------------------------------------- */
+
+  .manifesto {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--white);
+  }
+
+  .manifesto__text {
+    max-width: 26ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4.2vw, 3rem);
+    line-height: 1.25;
+    color: var(--navy-deep);
+    text-wrap: balance;
+  }
+
+  .manifesto__text em {
+    font-style: italic;
+    color: var(--teal-dark);
+  }
+
+  /* Case-study carousel ------------------------------------------ */
+
+  .cs-preview__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cs-preview__nav {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .carousel-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--white);
+    color: var(--navy);
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .carousel-btn:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .carousel-wrap {
+    overflow: hidden;
+  }
+
+  .carousel {
+    display: flex;
+    gap: 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding-block: 0.25rem 0.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel__card {
+    flex: 0 0 min(24rem, 82vw);
+    scroll-snap-align: start;
+  }
+
+  .carousel__card > a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    height: 100%;
+    min-height: 17rem;
+    padding: 2rem;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.35s ease,
+      border-color 0.35s ease;
+  }
+
+  .carousel__card > a:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--teal) 45%, var(--line));
+    box-shadow: 0 18px 40px -18px rgba(30, 61, 80, 0.25);
+  }
+
+  .carousel__sector {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .carousel__client {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+  }
+
+  .carousel__title {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    line-height: 1.25;
+    color: var(--navy-deep);
+  }
+
+  .carousel__metric {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .carousel__metric strong {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 500;
+    color: var(--teal-dark);
+    margin-right: 0.25rem;
+  }
+
+  .carousel__card--all > a {
+    background: var(--navy-deep);
+    border-color: var(--navy-deep);
+    justify-content: center;
+  }
+
+  .carousel__card--all .carousel__title {
+    color: var(--white);
+  }
+
+  .carousel__card--all .carousel__metric {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  /* Sectors grid --------------------------------------------------- */
+
+  .sector-grid {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 720px) {
+    .sector-grid {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 3rem;
+    }
+  }
+
+  .sector-grid__item {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-top: 1px solid var(--line);
+    padding-block: 1.375rem;
+  }
+
+  .sector-grid__num {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--teal-dark);
+  }
+
+  .sector-grid__name {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    color: var(--navy-deep);
+  }
+
+  /* Client marquee -------------------------------------------------- */
+
+  .client-band {
+    border-top: 1px solid var(--line);
+    background: var(--white);
+    overflow: hidden;
+  }
+
+  .marquee {
+    margin-top: 1.75rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .marquee__track {
+    display: flex;
+    gap: 4.5rem;
+    width: max-content;
+    animation: marquee 45s linear infinite;
+  }
+
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+
+  .marquee__item {
+    font-family: var(--font-display);
+    font-size: 1.625rem;
+    color: var(--navy);
+    opacity: 0.55;
+    white-space: nowrap;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+      gap: 1rem 2.5rem;
+    }
+  }
+
+  .client-strip__note {
+    margin-top: 1.75rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  .awards {
+    margin-top: 3.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding-top: 2.5rem;
+  }
+
+  .awards ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 0;
+    display: grid;
+    gap: 0.625rem;
+  }
+
+  .awards li {
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .awards li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+  }
+</style>
+
+<script>
+  // Arrow controls for the case-study carousel (scroll-snap does the rest).
+  const track = document.querySelector('[data-carousel]');
+  const step = () => {
+    const card = track?.querySelector('.carousel__card');
+    return card ? card.getBoundingClientRect().width + 20 : 400;
+  };
+  document
+    .querySelector('[data-carousel-prev]')
+    ?.addEventListener('click', () => track?.scrollBy({ left: -step(), behavior: 'smooth' }));
+  document
+    .querySelector('[data-carousel-next]')
+    ?.addEventListener('click', () => track?.scrollBy({ left: step(), behavior: 'smooth' }));
+</script>

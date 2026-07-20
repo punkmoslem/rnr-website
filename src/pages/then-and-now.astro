@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Award/recognition phrases are wrapped in <b class="rec"> — they light up teal
+// as the visitor scrolls each year into view (see .tl.in .rec in global.css).
+const milestones = [
+  { y: '2000', t: 'Rika & Rekan opens its doors', d: 'R&R is founded in Jakarta as Rika dan Rekan — Rika &amp; Partners. The name is a promise: we only ever work as somebody\'s "&amp;".' },
+  { y: '2008', t: 'The corporate years', d: 'Financial services, FMCG and multinationals join the roster. Long retainers become the house habit — some relationships from this era run for over fifteen years.' },
+  { y: '2010', t: 'Two industry firsts', d: 'Named <b class="rec">Most Effective PR Agency</b> and <b class="rec">Most Value-for-Money PR Agency</b> by Mix Magazine — and awarded <b class="rec">PR Bronze for the Pond\'s "Vitamin A Dios" campaign</b>.' },
+  { y: '2012', t: 'Purpose, put to work', d: '<b class="rec">Best PR Strategy for a Social Campaign &amp; Social Program</b>, for "Anlene untuk Kesehatan Tulang" (Mix Magazine) — bone-health awareness that moved a nation, not just a market.' },
+  { y: '2013', t: 'Samsung, and a decade of launches', d: 'The start of an eleven-year partnership: 3,000+ media articles, first overseas media workshops, and yearly KOL programs of 250+ collaboration videos. Also honored as <b class="rec">Best Indonesia Brand Activation for Kids</b> for the "Sikat Gigi Sebelum Tidur" school program (Mix Magazine).' },
+  { y: '2016', t: 'Indonesia PR of the Year', d: 'The "PS. I Love Mama" campaign for Beiersdorf wins <b class="rec">Creative PR Program of the Year</b> — proof that heart and rigor can share a brief.' },
+  { y: '2018', t: 'A double year', d: '<b class="rec">Best Marketing PR Program</b> for the Samsung Galaxy S9/S9+ launch, and <b class="rec">PR Agency of the Year</b>.' },
+  { y: '2021', t: 'Best Branding Agency', d: 'Recognized as <b class="rec">Best Branding Agency</b> with PR agency competency — strategy and identity, not just placement.' },
+  { y: '2022', t: 'Health, at national scale', d: 'MSD Indonesia arrives. Cervical-cancer awareness, immunization education and the "Tenang untuk Menang" campaign with the Ministry of Health follow.' },
+  { y: '2026', t: 'Now — and the next "&"', d: '<b class="rec">PR Awards 2026: Best Media Relations Strategy</b>, for our work with Bayer Indonesia. 26 years, 2,000+ projects, 150+ brands, ~100,000 media clips — and a new connection to manage: what AI says about you, measured by our Seen &amp; Said tool.' },
+];
+---
+<Base
+  title="Then & Now — 26 years of R&R Communications"
+  description="From a Jakarta founding in 2000 to 2,000+ projects, 150+ brands and four industry awards — the story of R&R Communications."
+>
+  <section class="hero">
+    <div class="field"><canvas id="field"></canvas></div>
+    <span class="ghostamp" aria-hidden="true">&amp;</span>
+    <div class="wrap intro" style="padding-bottom:40px">
+      <span class="kicker">Then &amp; Now · our story</span>
+      <h1>Maturity is an asset,<br />not <span class="bigand">an</span> age.</h1>
+      <p class="lede">Since 2000 the ampersand has been the whole job description:
+      sitting between brands/companies and the people they serve, and making the
+      connection hold.</p>
+    </div>
+  </section>
+
+  <section class="sect" style="padding-top:32px">
+    <div class="wrap">
+      <div class="timeline">
+        <span class="progress" aria-hidden="true"></span>
+        {milestones.map((m) => (
+          <div class="tl rv">
+            <div class="y">{m.y}</div>
+            <h3>{m.t}</h3>
+            <p set:html={m.d} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ctaband">
+    <span class="drift" aria-hidden="true">&amp;</span>
+    <div class="wrap rv">
+      <h2>Twenty-six years in.<br />Your story is <i>next</i>.</h2>
+      <p>See what those years produce — the campaigns, the numbers, the rooms.</p>
+      <a class="btn teal" href="/said-and-done">Said &amp; Done <span class="bsub">— The Work</span> <span class="arr">→</span></a>
+    </div>
+  </section>
+</Base>

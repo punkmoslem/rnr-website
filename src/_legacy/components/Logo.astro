@@ -1,0 +1,54 @@
+---
+// Wordmark rebuilt in HTML/CSS from the 2025 logo so it stays crisp at
+// any size and inherits no white background. The original raster file
+// remains at /public/logo.jpg for social previews.
+interface Props {
+  /** "light" renders the wordmark for dark backgrounds */
+  variant?: 'default' | 'light';
+}
+const { variant = 'default' } = Astro.props;
+---
+
+<span class:list={['logo', variant === 'light' && 'logo--light']} translate="no">
+  <span class="logo__mark" aria-hidden="true">R<span class="logo__amp">&amp;</span>R</span>
+  <span class="logo__sub" aria-hidden="true">Communications</span>
+  <span class="visually-hidden">R&amp;R Communications</span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    font-family: var(--font-logo);
+    text-decoration: none;
+  }
+
+  .logo__mark {
+    font-weight: 700;
+    font-size: 1.75rem;
+    letter-spacing: -0.06em;
+    color: var(--navy);
+  }
+
+  .logo__amp {
+    color: var(--teal);
+    margin-inline: -0.05em;
+  }
+
+  .logo__sub {
+    font-weight: 700;
+    font-size: 0.4375rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-top: 0.2rem;
+    margin-left: 0.42em; /* optically recentre against trailing tracking */
+  }
+
+  .logo--light .logo__mark,
+  .logo--light .logo__sub {
+    color: var(--white);
+  }
+</style>

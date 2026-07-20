@@ -1,0 +1,32 @@
+---
+import Logo from './Logo.astro';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const links = [
+  { href: '/then-and-now',  and: 'Then & Now',   plain: 'Our story' },
+  { href: '/ways-and-means', and: 'Ways & Means', plain: 'Expertise' },
+  { href: '/said-and-done', and: 'Said & Done',  plain: 'The work' },
+  { href: '/seen-and-said', and: 'Seen & Said',  plain: 'AI visibility checker' },
+];
+const current = (href: string) => (path === href ? 'page' : undefined);
+---
+<header class="site" id="siteHeader">
+  <nav class="nav" aria-label="Main">
+    <a href="/" aria-label="R&R Communications — home" style="flex:none">
+      <Logo height={54} />
+    </a>
+    <div class="links" id="navLinks">
+      {links.map((l) => (
+        <a class="lnk" href={l.href} aria-current={current(l.href)}>
+          <span class="and" set:html={l.and.replace('&', '<i class="fancy-amp">&amp;</i>')} />
+          <span class="plain">{l.plain}</span>
+        </a>
+      ))}
+      <a class="btn teal cta" href="/you-and-us" style="padding:11px 22px;font-size:13.5px">
+        <span>You <i class="fancy-amp" style="background:#fff">&amp;</i> Us</span>
+      </a>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <i></i><i></i><i></i>
+    </button>
+  </nav>
+</header>

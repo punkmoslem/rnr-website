@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="You & Us — Contact | R&R Communications"
+  description="Let's put an & between us. Contact R&R Communications — Jl. Bungur 88, Kebayoran Lama, Jakarta Selatan, Indonesia 12240."
+  gate={false}
+>
+  <section class="hero">
+    <div class="field"><canvas id="field"></canvas></div>
+    <span class="ghostamp" aria-hidden="true">&amp;</span>
+    <div class="wrap intro" style="padding-bottom:64px">
+      <span class="kicker">You &amp; Us · contact</span>
+      <h1>Let's put an <i class="fancy-amp">&amp;</i><br />between us.</h1>
+      <p class="lede">A conversation costs nothing and usually saves a great deal.
+      Tell us what you're trying to say — we'll tell you honestly whether we can help it be believed.</p>
+
+      <div class="contact-grid">
+        <form
+          class="cform rv"
+          action="mailto:contact@rikadanrekan.id"
+          method="post"
+          enctype="text/plain"
+        >
+          <label for="cname">Your name</label>
+          <input id="cname" name="name" type="text" required placeholder="Who are we talking with?" />
+          <label for="cbrand">Brand or organisation</label>
+          <input id="cbrand" name="brand" type="text" placeholder="Who are we talking about?" />
+          <label for="cmail">Email</label>
+          <input id="cmail" name="email" type="email" required placeholder="Where do we reply?" />
+          <label for="cmsg">The story so far</label>
+          <textarea id="cmsg" name="message" rows="5" placeholder="What are you trying to say — and to whom?"></textarea>
+          <button class="btn teal" type="submit" style="margin-top:26px">Send it over <span class="arr">→</span></button>
+          <p class="tnote">Prefer talking? Call us — same-day reply on working days.</p>
+        </form>
+
+        <div class="cinfo rv">
+          <div class="row">
+            <div class="lbl">Office</div>
+            <div class="val">Jl. Bungur 88, Kebayoran Lama,<br />Jakarta Selatan, Indonesia 12240</div>
+          </div>
+          <div class="row">
+            <div class="lbl">Telephone</div>
+            <div class="val"><a href="tel:+62217263109">+62 21 726 3109</a></div>
+          </div>
+          <div class="row">
+            <div class="lbl">Email</div>
+            <div class="val"><a href="mailto:contact@rikadanrekan.id">contact@rikadanrekan.id</a></div>
+          </div>
+          <div class="row">
+            <div class="lbl">Instagram</div>
+            <div class="val"><a href="https://www.instagram.com/rnr_publicrelations/" rel="noopener" target="_blank">@rnr_publicrelations</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

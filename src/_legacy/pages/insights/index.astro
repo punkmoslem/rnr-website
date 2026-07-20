@@ -1,0 +1,105 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('insights')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const fmt = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Base
+  title="Perspectives — Communications Insights | R&R Communications"
+  description="Thought leadership on public relations, media and corporate communications in Indonesia, from the team at R&R Communications."
+  path="/insights"
+>
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Perspectives</span>
+      <h1>Thinking on communications in Indonesia</h1>
+      <p class="lede">
+        Notes from twenty-six years of practice — on media, reputation and the craft
+        of communication.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt section--tight">
+    <div class="container">
+      <ul class="post-list" role="list">
+        {
+          posts.map((post) => (
+            <li class="post-card">
+              <p class="post-card__meta">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {fmt.format(post.data.pubDate)}
+                </time>
+                {post.data.tags.length > 0 && <span> · {post.data.tags.join(' · ')}</span>}
+              </p>
+              <h2>
+                <a href={`/insights/${post.id}`}>{post.data.title}</a>
+              </h2>
+              <p>{post.data.description}</p>
+              <p class="post-card__more">
+                <a href={`/insights/${post.id}`} aria-hidden="true" tabindex="-1">
+                  Read the article →
+                </a>
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .post-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2rem 2.25rem;
+  }
+
+  .post-card__meta {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    margin-bottom: 0.625rem;
+  }
+
+  .post-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .post-card h2 a {
+    color: var(--navy-deep);
+    text-decoration: none;
+  }
+
+  .post-card h2 a:hover {
+    color: var(--teal-dark);
+  }
+
+  .post-card > p:not(.post-card__meta) {
+    margin-top: 0.75rem;
+    color: var(--muted);
+  }
+
+  .post-card__more {
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+</style>

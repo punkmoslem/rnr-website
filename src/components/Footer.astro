@@ -1,0 +1,33 @@
+---
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+---
+<footer class="site">
+  <div class="wrap">
+    <div class="fbrand">
+      <Logo on="dark" height={52} />
+      <p>Communication with purpose. Jakarta's independent communication
+      consultancy — the "&amp;" between trusted brands and the people they serve, since 2000.</p>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <a href="/then-and-now">Then <i class="fancy-amp">&amp;</i> Now <span class="fsub">— Our story</span></a>
+      <a href="/ways-and-means">Ways <i class="fancy-amp">&amp;</i> Means <span class="fsub">— Expertise</span></a>
+      <a href="/said-and-done">Said <i class="fancy-amp">&amp;</i> Done <span class="fsub">— The work</span></a>
+      <a href="/said-and-done/pen-and-press">Pen <i class="fancy-amp">&amp;</i> Press <span class="fsub">— Newsroom</span></a>
+      <a href="/seen-and-said">Seen <i class="fancy-amp">&amp;</i> Said <span class="fsub">— AI visibility checker</span></a>
+      <a href="/you-and-us">You <i class="fancy-amp">&amp;</i> Us <span class="fsub">— Contact</span></a>
+    </div>
+    <div>
+      <h4>Find us</h4>
+      <a href="https://maps.google.com/?q=Jl.+Bungur+88,+Kebayoran+Lama,+Jakarta+Selatan+12240" rel="noopener" target="_blank">
+        Jl. Bungur 88, Kebayoran Lama,<br />Jakarta Selatan, Indonesia 12240
+      </a>
+      <a href="tel:+62217263109">+62 21 726 3109</a>
+      <a href="mailto:contact@rikadanrekan.id">contact@rikadanrekan.id</a>
+      <a href="https://rikadanrekan.id" rel="noopener" target="_blank">rikadanrekan.id</a>
+      <a href="https://www.instagram.com/rnr_publicrelations/" rel="noopener" target="_blank">@rnr_publicrelations</a>
+    </div>
+  </div>
+  <div class="legal">© {year} R&amp;R Communications · Communication with purpose</div>
+</footer>

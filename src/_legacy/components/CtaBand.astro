@@ -1,0 +1,39 @@
+---
+interface Props {
+  heading?: string;
+  body?: string;
+}
+const {
+  heading = 'Ready to strengthen your reputation?',
+  body = 'Tell us where your brand stands and where it needs to be. We will bring a clear, measurable plan to the first meeting.',
+} = Astro.props;
+---
+
+<section class="section section--dark cta-band has-watermark">
+  <div class="container">
+    <h2>{heading}</h2>
+    <p class="lede">{body}</p>
+    <div class="btn-row">
+      <a href="/contact" class="btn btn--light">Book a Consultation</a>
+      <a
+        href="https://wa.me/628179206683"
+        class="btn btn--ghost btn--ghost-light"
+        target="_blank"
+        rel="noopener">Chat on WhatsApp</a
+      >
+    </div>
+  </div>
+</section>
+
+<style>
+  .btn--ghost-light {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: var(--white);
+  }
+
+  .btn--ghost-light:hover {
+    background: var(--white);
+    color: var(--navy-deep);
+    border-color: var(--white);
+  }
+</style>

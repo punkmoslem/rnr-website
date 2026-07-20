@@ -1,0 +1,205 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Formspree endpoint — replace YOUR_FORM_ID after creating a (free) form at
+// https://formspree.io with the dedicated business inbox as the recipient.
+const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+---
+
+<Base
+  title="Start a Conversation — Contact R&R Communications Jakarta"
+  description="Book a consultation with R&R Communications. Office at Jl. Bungur No. 88, Kebayoran Lama, Jakarta Selatan · 021-726-3109 · WhatsApp 0817-920-6683."
+  path="/contact"
+>
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Start a Conversation</span>
+      <h1>Tell us where your brand needs to be</h1>
+      <p class="lede">
+        Whether you have a defined brief or an undefined problem, the first
+        consultation is a working session, not a sales call. We will come back with a
+        clear point of view.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt section--tight">
+    <div class="container contact-grid">
+      <!-- Form -->
+      <div>
+        <h2>Book a consultation</h2>
+        <form class="contact-form" action={FORM_ENDPOINT} method="POST">
+          <div class="field">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" required autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="phone">Phone / WhatsApp <span class="optional">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="message">How can we help?</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary">Book a Consultation</button>
+          <p class="form-note">
+            We respond within one working day. Your details are used only to reply to
+            this enquiry.
+          </p>
+        </form>
+      </div>
+
+      <!-- Direct channels -->
+      <div class="contact-direct">
+        <h2>Or reach us directly</h2>
+        <ul role="list">
+          <li>
+            <span class="contact-direct__label">WhatsApp</span>
+            <a href="https://wa.me/628179206683" target="_blank" rel="noopener"
+              >0817-920-6683 — chat now</a
+            >
+          </li>
+          <li>
+            <span class="contact-direct__label">Telephone</span>
+            <a href="tel:+62217263109">021-726-3109</a>
+          </li>
+          <li>
+            <span class="contact-direct__label">Email</span>
+            <a href="mailto:hello@rikadanrekan.id"
+              >hello@rikadanrekan.id</a
+            >
+            <span class="ph-note">[PLACEHOLDER — confirm dedicated business inbox address]</span>
+          </li>
+          <li>
+            <span class="contact-direct__label">Instagram</span>
+            <a href="https://instagram.com/PLACEHOLDER" target="_blank" rel="noopener"
+              >@PLACEHOLDER</a
+            >
+            <span class="ph-note">[PLACEHOLDER — confirm handle]</span>
+          </li>
+          <li>
+            <span class="contact-direct__label">Office</span>
+            Jl. Bungur No. 88, Kebayoran Lama,<br />Jakarta Selatan, Indonesia
+          </li>
+        </ul>
+
+        <div class="map-wrap">
+          <iframe
+            title="Map to the R&R Communications office, Jl. Bungur No. 88, Kebayoran Lama, Jakarta Selatan"
+            src="https://maps.google.com/maps?q=Jl.%20Bungur%20No.%2088%2C%20Kebayoran%20Lama%2C%20Jakarta%20Selatan&z=16&output=embed"
+            width="100%"
+            height="300"
+            style="border:0;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .contact-form {
+    margin-top: 1.75rem;
+    display: grid;
+    gap: 1.25rem;
+    max-width: 32rem;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.375rem;
+  }
+
+  .field label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--navy-deep);
+  }
+
+  .optional {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .field input,
+  .field textarea {
+    font: inherit;
+    padding: 0.75rem 0.875rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--white);
+    color: var(--ink);
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: 2px solid var(--teal);
+    outline-offset: 0;
+    border-color: var(--teal);
+  }
+
+  .contact-form .btn {
+    justify-self: start;
+    border: none;
+    cursor: pointer;
+  }
+
+  .form-note {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  .contact-direct ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .contact-direct__label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.125rem;
+  }
+
+  .ph-note {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .map-wrap {
+    margin-top: 2rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+</style>

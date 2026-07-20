@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const latest = (await getCollection('insights'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const cases = [
+  {
+    id: 'msd', sec: 'Healthcare · MSD Indonesia · 2022 — present', img: '/img/msd-kelasjurnalis.jpg',
+    alt: 'MSD and Kemenkes Kelas Jurnalis media program',
+    t: 'Public health, made front-page news',
+    d: 'Cervical cancer awareness, immunization education and the "Tenang untuk Menang" campaign with the Ministry of Health — plus Journalism Program roadshows that carried the story beyond Jakarta into key regional cities.',
+    nums: [['759', 'Media articles'], ['12', 'Activities']],
+  },
+  {
+    id: 'bayer', sec: 'Pharma · Bayer · 2018 — present', img: '/img/bayer-cimanggis.jpg',
+    alt: 'Bayer Cimanggis facility expansion announcement',
+    t: 'Science, told like a story',
+    d: 'From "The Science Behind" education series to the Rp 99 billion Cimanggis expansion and plant visits — narratives that align a global brand with Indonesian values, and earn trust beyond announcements.',
+    nums: [['215', 'Articles, one semester'], ['8', 'Years as partner']],
+  },
+  {
+    id: 'tech', sec: 'Technology · Samsung · OPPO · ASUS', img: '/img/oppo-findx9.jpg',
+    alt: 'OPPO Find X9 Series launch event',
+    t: 'Launch after launch, believed',
+    d: 'Eleven years with Samsung — 3,000+ articles, the award-winning Galaxy S9 launch, Nightography. Today: OPPO flagship launches and the ASUS Expert series with 586 million circulations.',
+    nums: [['3000', 'Samsung articles', '+'], ['488', 'ASUS coverage']],
+  },
+  {
+    id: 'industry', sec: 'Industry & B2B · Bosch · SKF · Jotun', img: '/img/jotun-cikarang.jpg',
+    alt: 'Jotun Cikarang factory inauguration',
+    t: 'Industrial stories, human scale',
+    d: 'Bosch across consumer electronics to industrial solutions; SKF positioned as the leader in industrial digital transformation; Jotun\'s Rp 1 trillion Cikarang factory told as a 100-year commitment to Indonesia.',
+    nums: [['561', 'Bosch articles'], ['106', 'SKF articles']],
+  },
+];
+
+const tenures = [
+  ['Samsung', '2013 – 2024'], ['Citi', '2008 – 2024'], ['Frisian Flag', 'since 2016'],
+  ['Bayer', 'since 2018'], ['JEC', 'since 2018'], ['Combiphar', 'since 2018'],
+  ['MSD Indonesia', 'since 2022'], ['IPMG', 'since 2024'], ['OPPO', 'current'],
+  ['ASUS', 'current'], ['Paragon Corp', 'current'], ['PZ Cussons', 'current'],
+];
+---
+<Base
+  title="Said & Done — The work | R&R Communications"
+  description="Case studies with the numbers attached: MSD, Bayer, JEC, Samsung, OPPO, Bosch, SKF, Jotun — 26 years of campaigns by R&R Communications."
+>
+  <section class="hero">
+    <div class="field"><canvas id="field"></canvas></div>
+    <span class="ghostamp" aria-hidden="true">&amp;</span>
+    <div class="wrap intro" style="padding-bottom:48px">
+      <span class="kicker">Said &amp; Done · the work</span>
+      <h1>Promised, delivered,<br /><i class="fancy-amp">&amp;</i> counted.</h1>
+      <p class="lede">PR's whole promise in three words. Here is the work with the numbers
+      attached.</p>
+    </div>
+  </section>
+
+  <section class="sect" style="padding-top:16px">
+    <div class="wrap">
+      {cases.map((c) => (
+        <article class="case rv" id={c.id}>
+          <div class="cimg"><img src={c.img} alt={c.alt} loading="lazy" /></div>
+          <div>
+            <span class="csec">{c.sec}</span>
+            <h3>{c.t}</h3>
+            <p>{c.d}</p>
+            <div class="cnums">
+              {c.nums.map((n) => (
+                <div class="cnum">
+                  <div class="n"><span data-count={n[0]} data-suffix={n[2] || ''}>0</span></div>
+                  <div class="l">{n[1]}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap sect tight">
+      <div class="rv">
+        <span class="kicker">Long &amp; Lasting</span>
+        <h2 class="display" style="font-size:clamp(26px,3.4vw,40px)">Relationships, measured in years</h2>
+        <p class="lede">Steadiness shows up in tenure. These are working relationships, not logos.</p>
+      </div>
+      <div class="tenure rv">
+        {tenures.map(([name, span]) => (
+          <span class="ten">{name} <b>{span}</b></span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sect tight" id="pen-and-press">
+    <div class="wrap">
+      <div class="rv" style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap">
+        <div>
+          <span class="kicker">Pen &amp; Press · Newsroom</span>
+          <h2 class="display" style="font-size:clamp(26px,3.4vw,40px)">Written here, read everywhere</h2>
+          <p class="lede">The newsroom — press releases we've placed, and our own perspectives.</p>
+        </div>
+        <a class="btn ghost" href="/said-and-done/pen-and-press">All posts <span class="arr">→</span></a>
+      </div>
+      <div class="newsgrid rv-stagger">
+        {latest.map((p) => (
+          <a class="news" href={`/said-and-done/pen-and-press/${p.id}`}>
+            {p.data.image && <div class="nimg"><img src={p.data.image} alt={p.data.imageAlt || p.data.title} loading="lazy" /></div>}
+            <div class="ntop">
+              <span class={`ntag ${p.data.type}`}>{p.data.type === 'press-release' ? 'Press release' : 'Perspective'}</span>
+              <span class="ndate">{fmtDate(p.data.pubDate)}</span>
+            </div>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            <span class="nfoot">{p.data.client ? `For ${p.data.client}` : p.data.author} <span class="arr">→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ctaband">
+    <span class="drift" aria-hidden="true">&amp;</span>
+    <div class="wrap rv">
+      <h2>Your numbers could<br />live on <i>this</i> page.</h2>
+      <p>Start with a conversation — or check what AI already says about you.</p>
+      <a class="btn teal" href="/you-and-us">Start a conversation <span class="arr">→</span></a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,262 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const milestones = [
+  {
+    year: '2000',
+    text: 'Founded in Jakarta as a small home-office PR consultancy.',
+  },
+  {
+    year: '2005–2010',
+    text: 'Incorporated as PT Komunika Pratama Reksa. Retained as PR consultant by leading multinational FMCG brands.',
+  },
+  {
+    year: '2010',
+    text: 'Defined the guiding philosophy that still shapes the firm: "Work is Worship, Work with Heart."',
+  },
+  {
+    year: '2010–2018',
+    text: 'Multiple industry awards and recognitions for client work, including PR Agency of the Year 2018.',
+  },
+  {
+    year: '2020–2024',
+    text: 'Leadership regeneration, organisational strengthening and a new generation of talent.',
+  },
+  {
+    year: '2025',
+    text: 'A new spirit and a new visual identity — R&R Public Relations becomes R&R Communications. New logo, new energy, same legacy.',
+  },
+];
+
+const pillars = [
+  {
+    name: 'Enhancing Client Reputation',
+    text: 'Measurable, effective strategies that elevate reputation and credibility — every programme is designed against outcomes we can show.',
+  },
+  {
+    name: 'Bridging Clients and Audiences',
+    text: 'Meaningful connections between brands and the people who matter to them, across traditional, digital and emerging media.',
+  },
+  {
+    name: 'Delivering Creative Communication Solutions',
+    text: 'Adaptive, strategic narratives that are always ethically sound — creativity in service of the message, never at its expense.',
+  },
+  {
+    name: 'Fostering Sustainable Partnerships',
+    text: 'Long-term relationships built on trust and measurable results. Our longest retainers have run for more than a decade.',
+  },
+  {
+    name: 'Evolving with Purpose',
+    text: 'Nurturing talent and staying adaptive and innovative — so the firm our clients rely on keeps earning that reliance.',
+  },
+];
+
+const tools = [
+  { area: 'Media monitoring', names: 'Explicar, Binocular, Skema' },
+  { area: 'Social analytics', names: 'Sprout Social, VidIQ, Brandwatch' },
+  { area: 'Content & SEO', names: 'Google Trends, Keyword Planner, SEMrush' },
+];
+---
+
+<Base
+  title="Our Story — R&R Communications | 26 Years of PR in Indonesia"
+  description="From a Jakarta home office in 2000 to one of Indonesia's most experienced PR consultancies. The story, vision, mission and philosophy of R&R Communications."
+  path="/about"
+>
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Our Story</span>
+      <h1>Same legacy, new spirit</h1>
+      <p class="lede">
+        R&R Communications began in 2000 as a home-office PR consultancy in Jakarta.
+        Twenty-six years later, we are one of Indonesia's most experienced independent
+        communications firms — incorporated as PT Komunika Pratama Reksa, trusted by
+        leading multinational brands, and renewed in 2025 with a new identity that
+        honours everything the firm has built.
+      </p>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Milestones</span>
+      <h2>Twenty-six years, in brief</h2>
+      <ol class="timeline" role="list" data-reveal-stagger>
+        {
+          milestones.map((m) => (
+            <li class="timeline__item">
+              <span class="timeline__year">
+                <span class="timeline__dot" aria-hidden="true" />
+                {m.year}
+              </span>
+              <p>{m.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="section section--dark">
+    <div class="container">
+      <span class="eyebrow">Vision</span>
+      <h2>Where we are headed</h2>
+      <p class="lede vision-text">
+        To be Indonesia's leading PR consultancy, renowned for crafting creative and
+        impactful communication strategies — guided by integrity, driven by top talent,
+        empowering clients, engaging stakeholders, and creating lasting value for
+        society.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission pillars -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Mission</span>
+      <h2>Five commitments that shape every engagement</h2>
+      <ol class="pillars" role="list" data-reveal-stagger>
+        {
+          pillars.map((p, i) => (
+            <li class="card pillar">
+              <span class="pillar__num" aria-hidden="true">0{i + 1}</span>
+              <h3>{p.name}</h3>
+              <p>{p.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="section section--alt has-watermark philosophy-section">
+    <div class="container philosophy">
+      <span class="eyebrow">Philosophy</span>
+      <h2>"Work is Worship, Work with Heart"</h2>
+      <p class="lede">
+        Defined in 2010, this philosophy has guided the firm through every market cycle
+        since. It means treating every brief — however small — as work worth doing
+        properly, and every client relationship as something to be earned again each
+        year. It is why several of our retainers have lasted longer than most agencies
+        last.
+      </p>
+    </div>
+  </section>
+
+  <!-- How we work -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">How we work</span>
+      <h2>Judgement first, data always</h2>
+      <p class="lede">
+        Our counsel is built on senior judgement — and backed by a modern measurement
+        stack. Every programme is monitored, analysed and reported against agreed
+        outcomes.
+      </p>
+      <div class="grid grid--3" style="margin-top: 2.5rem;">
+        {
+          tools.map((t) => (
+            <div class="card">
+              <h3>{t.area}</h3>
+              <p>{t.names}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Twenty-six years of lessons, at your service"
+    body="Talk to a consultancy that has seen every market cycle since 2000 — and is still here."
+  />
+</Base>
+
+<style>
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .timeline__item {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .timeline__item:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (max-width: 560px) {
+    .timeline__item {
+      grid-template-columns: 1fr;
+      gap: 0.375rem;
+    }
+  }
+
+  .timeline__year {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--teal-dark);
+  }
+
+  .timeline__dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+    transform: translateY(-0.1em);
+  }
+
+  .philosophy-section {
+    color: var(--navy);
+  }
+
+  .vision-text {
+    max-width: 58ch;
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    line-height: 1.55;
+  }
+
+  .pillars {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 720px) {
+    .pillars {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pillars li:last-child {
+      grid-column: span 2;
+    }
+  }
+
+  .pillar__num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+</style>

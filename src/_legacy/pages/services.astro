@@ -1,0 +1,151 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+---
+
+<Base
+  title="Expertise — PR & Communications Services | R&R Communications Jakarta"
+  description="Media management, influencer management, crisis management, strategic communications and corporate reputation management — from Indonesia's 26-year-legacy PR consultancy."
+  path="/services"
+>
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Expertise</span>
+      <h1>Five disciplines, one standard</h1>
+      <p class="lede">
+        Every service we offer is delivered by the same senior-led teams, measured
+        against agreed outcomes, and grounded in twenty-six years of Indonesian media
+        and stakeholder experience.
+      </p>
+      <nav aria-label="Services on this page" class="service-index">
+        <ul role="list">
+          {services.map((s) => <li><a href={`#${s.slug}`}>{s.name}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  {
+    services.map((s, i) => (
+      <section id={s.slug} class:list={['section', i % 2 === 0 && 'section--alt']}>
+        <div class="container service" data-reveal>
+          <div class="service__head">
+            <span class="card__icon"><Icon name={s.icon} size={30} /></span>
+            <span class="eyebrow">0{i + 1}</span>
+          </div>
+          <h2>{s.name}</h2>
+          <p class="lede">{s.description}</p>
+          <h3 class="service__list-heading">What this covers</h3>
+          <ul class="service__list" role="list">
+            {s.deliverables.map((d) => (
+              <li>{d}</li>
+            ))}
+          </ul>
+          <div class="btn-row">
+            <a href="/contact" class="btn btn--primary">
+              Book a Consultation
+            </a>
+            <a href="/case-studies" class="btn btn--ghost">
+              See Purpose in Action
+            </a>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <CtaBand
+    heading="Not sure which discipline you need?"
+    body="Most engagements draw on more than one. Describe the situation — we will shape the right combination."
+  />
+</Base>
+
+<style>
+  .service__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .service__head .eyebrow {
+    margin-bottom: 0;
+  }
+
+  .service__head .card__icon {
+    margin-bottom: 0;
+  }
+
+  .service__head + h2 {
+    margin-top: 1.25rem;
+  }
+
+  .service-index {
+    margin-top: 2rem;
+  }
+
+  .service-index ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .service-index a {
+    display: inline-block;
+    border: 1px solid var(--line);
+    background: var(--white);
+    border-radius: 999px;
+    padding: 0.5rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--navy);
+  }
+
+  .service-index a:hover {
+    border-color: var(--teal);
+    color: var(--teal-dark);
+  }
+
+  .service__list-heading {
+    margin-top: 2.25rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .service__list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.5rem;
+    max-width: 34rem;
+  }
+
+  @media (min-width: 720px) {
+    .service__list {
+      grid-template-columns: 1fr 1fr;
+      max-width: 44rem;
+    }
+  }
+
+  .service__list li {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .service__list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+  }
+</style>

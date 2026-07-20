@@ -1,0 +1,45 @@
+---
+// Abstract brand graphic: two circles meeting around the ampersand —
+// the connection between clients and audiences that R&R brokers.
+// Pure SVG, no photography, scales crisply everywhere.
+---
+
+<div class="hero-visual" aria-hidden="true">
+  <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- soft teal wash behind the composition -->
+    <circle cx="330" cy="240" r="205" fill="var(--teal)" opacity="0.08" />
+    <!-- navy circle: the client -->
+    <circle cx="195" cy="255" r="150" stroke="var(--navy)" stroke-width="1.5" opacity="0.55" />
+    <!-- teal circle: the audience -->
+    <circle cx="330" cy="240" r="150" stroke="var(--teal)" stroke-width="1.5" />
+    <!-- fine orbit ring -->
+    <circle cx="262" cy="248" r="228" stroke="var(--navy)" stroke-width="1" opacity="0.14" stroke-dasharray="2 7" />
+    <!-- accent dots on the orbit -->
+    <circle cx="262" cy="20" r="4" fill="var(--teal)" />
+    <circle cx="472" cy="340" r="4" fill="var(--navy)" opacity="0.55" />
+    <circle cx="62" cy="370" r="4" fill="var(--teal)" opacity="0.7" />
+    <!-- the ampersand, where the two circles overlap -->
+    <text
+      x="262"
+      y="252"
+      text-anchor="middle"
+      dominant-baseline="central"
+      font-family="Fraunces, Georgia, serif"
+      font-size="150"
+      font-weight="500"
+      fill="var(--navy-deep)">&amp;</text>
+  </svg>
+</div>
+
+<style>
+  .hero-visual {
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+
+  .hero-visual svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('insights'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base
+  title="Pen & Press — Newsroom | R&R Communications"
+  description="Press releases we've written and distributed for clients, and our own perspectives on communication in Indonesia."
+>
+  <section class="hero">
+    <div class="field"><canvas id="field"></canvas></div>
+    <span class="ghostamp" aria-hidden="true">&amp;</span>
+    <div class="wrap intro" style="padding-bottom:48px">
+      <span class="kicker"><a href="/said-and-done" style="color:inherit">Said &amp; Done</a> · Pen &amp; Press</span>
+      <h1>Written here,<br />read <span class="bigand">every</span>where.</h1>
+      <p class="lede">The newsroom: press releases we've written and placed for clients,
+      and our own perspectives on how communication actually works in Indonesia.</p>
+    </div>
+  </section>
+
+  <section class="sect" style="padding-top:16px">
+    <div class="wrap">
+      <div class="newsfilter rv" role="tablist" aria-label="Filter posts">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="press-release">Press releases</button>
+        <button class="chip" data-filter="perspective">Perspectives</button>
+        <button class="chip" data-filter="letter">A Note from Rika</button>
+      </div>
+
+      <div class="newsgrid rv-stagger">
+        {posts.map((p) => (
+          <a class="news" href={`/said-and-done/pen-and-press/${p.id}`} data-type={p.data.type}>
+            {p.data.image && <div class="nimg"><img src={p.data.image} alt={p.data.imageAlt || p.data.title} loading="lazy" /></div>}
+            <div class="ntop">
+              <span class={`ntag ${p.data.type}`}>
+                {p.data.type === 'press-release' ? 'Press release' : p.data.type === 'letter' ? 'A Note from Rika' : 'Perspective'}
+              </span>
+              <span class="ndate">{fmt(p.data.pubDate)}</span>
+            </div>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            <span class="nfoot">
+              {p.data.client ? `For ${p.data.client}` : p.data.author} <span class="arr">→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ctaband">
+    <span class="drift" aria-hidden="true">&amp;</span>
+    <div class="wrap rv">
+      <h2>Your announcement,<br />written <i class="fancy-amp">&amp;</i> placed.</h2>
+      <p>From draft to front page — press releases are where we started, 26 years ago.</p>
+      <a class="btn teal" href="/you-and-us">Start a conversation <span class="arr">→</span></a>
+    </div>
+  </section>
+
+  <script>
+    const chips = document.querySelectorAll<HTMLButtonElement>('.newsfilter .chip');
+    const cards = document.querySelectorAll<HTMLElement>('.news');
+    chips.forEach((chip) =>
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.toggle('active', c === chip));
+        const f = chip.dataset.filter;
+        cards.forEach((card) => {
+          const show = f === 'all' || card.dataset.type === f;
+          card.style.display = show ? '' : 'none';
+        });
+      })
+    );
+  </script>
+</Base>

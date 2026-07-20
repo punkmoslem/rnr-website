@@ -1,0 +1,8 @@
+---
+// The official R&R Communications logo (Logo 2025) — transparent PNG, used
+// as-is on light and dark surfaces (no plate behind it).
+interface Props { on?: 'light' | 'dark'; height?: number }
+const { height = 48 } = Astro.props;
+const w = Math.round(height * (1031 / 617));
+---
+<img src="/img/logo-nav.png" alt="R&R Communications" width={w} height={height} style="display:block" />

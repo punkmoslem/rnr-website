@@ -1,0 +1,292 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeenSaidGate from '../components/SeenSaidGate.astro';
+import QuizGate from '../components/QuizGate.astro';
+
+interface Props { title: string; description: string; path?: string; gate?: boolean }
+const { title, description, gate = true } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <span class="readline" id="readline" aria-hidden="true"></span>
+    <Header />
+    <slot />
+    <Footer />
+    {gate && <SeenSaidGate />}
+    <QuizGate />
+
+    <script>
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import { SplitText } from 'gsap/SplitText';
+      import Lenis from 'lenis';
+
+      // ===== shared animation engine =====
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // page entrance
+      requestAnimationFrame(() => document.body.classList.add('loaded'));
+
+      // ===== global reading thread — hairline scroll progress =====
+      const readline = document.getElementById('readline');
+      if (readline) {
+        const setProgress = () => {
+          const max = document.documentElement.scrollHeight - innerHeight;
+          const p = max > 0 ? Math.min(Math.max(scrollY / max, 0), 1) : 0;
+          readline.style.transform = `scaleX(${p})`;
+        };
+        addEventListener('scroll', setProgress, { passive: true });
+        addEventListener('resize', setProgress);
+        setProgress();
+      }
+
+      // ===== smooth scroll + scroll choreography (GSAP + Lenis) =====
+      if (!reduce) {
+        gsap.registerPlugin(ScrollTrigger, SplitText);
+
+        const lenis = new Lenis({ lerp: 0.11, anchors: true });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((t) => lenis.raf(t * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        // masked line reveals on display headings — lines rise out of an
+        // invisible envelope, Fraunces doing the talking
+        document.fonts.ready.then(() => {
+          document.querySelectorAll<HTMLElement>('h2.display, .ctaband h2').forEach((h) => {
+            if (h.closest('dialog')) return; // modals reveal themselves
+            const split = new SplitText(h, { type: 'lines', mask: 'lines' });
+            gsap.from(split.lines, {
+              yPercent: 112, duration: 1.15, ease: 'power4.out', stagger: 0.12,
+              scrollTrigger: { trigger: h, start: 'top 88%', once: true },
+            });
+          });
+        });
+
+        // a whisper of parallax inside the duotone photography — object-position
+        // drift, so the hover zoom (transform) is left untouched
+        document.querySelectorAll<HTMLElement>('.wcard img, .case .cimg img').forEach((img) => {
+          gsap.fromTo(img,
+            { objectPosition: '50% 58%' },
+            { objectPosition: '50% 42%', ease: 'none',
+              scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } });
+        });
+      }
+
+      // Fraunces' roman ampersand reads like "®" — swap every "&" inside
+      // headings for the italic form (the house script ampersand).
+      document.querySelectorAll('h1, h2, h3').forEach((h) => {
+        [...h.childNodes].forEach((node) => {
+          if (node.nodeType !== Node.TEXT_NODE || !node.textContent?.includes('&')) return;
+          const frag = document.createDocumentFragment();
+          node.textContent.split('&').forEach((part, i) => {
+            if (i > 0) {
+              const amp = document.createElement('i');
+              amp.className = 'fancy-amp';
+              amp.textContent = '&';
+              frag.appendChild(amp);
+            }
+            frag.appendChild(document.createTextNode(part));
+          });
+          node.replaceWith(frag);
+        });
+      });
+
+      // sticky header hairline
+      const header = document.getElementById('siteHeader');
+      const onScroll = () => header?.classList.toggle('scrolled', scrollY > 10);
+      addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // mobile nav
+      const burger = document.getElementById('burger');
+      const navLinks = document.getElementById('navLinks');
+      burger?.addEventListener('click', () => {
+        const open = navLinks?.classList.toggle('open');
+        burger.classList.toggle('open', !!open);
+        burger.setAttribute('aria-expanded', String(!!open));
+      });
+
+      // scroll reveals
+      const rvs = document.querySelectorAll('.rv, .rv-stagger');
+      if ('IntersectionObserver' in window && !reduce) {
+        const io = new IntersectionObserver((es) => {
+          es.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
+        rvs.forEach((r) => io.observe(r));
+      } else {
+        rvs.forEach((r) => r.classList.add('in'));
+      }
+
+      // count-up numbers  <span data-count="2000" data-suffix="+">
+      const fmt = (n: number) => n.toLocaleString('en-US');
+      const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+      const runCount = (el: HTMLElement) => {
+        const target = Number(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        let t0: number | null = null;
+        const tick = (t: number) => {
+          if (t0 === null) t0 = t;
+          let p = Math.min((t - t0) / 1800, 1);
+          p = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(Math.round(target * p)) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+      // counters that share a strip (.stats / .cnums) start one after another
+      const countDelay = (el: HTMLElement) => {
+        const group = el.closest('.stats, .cnums');
+        if (!group) return 0;
+        return [...group.querySelectorAll('[data-count]')].indexOf(el) * 170;
+      };
+      if (!reduce && 'IntersectionObserver' in window) {
+        const cio = new IntersectionObserver((es) => {
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              cio.unobserve(e.target);
+              setTimeout(() => runCount(e.target as HTMLElement), countDelay(e.target as HTMLElement));
+            }
+          });
+        }, { threshold: 0.5 });
+        counters.forEach((c) => cio.observe(c));
+      } else {
+        counters.forEach((c) => { c.textContent = fmt(Number(c.dataset.count)) + (c.dataset.suffix || ''); });
+      }
+
+      // hero word-pair cycler
+      const cycA = document.getElementById('cycA');
+      const cycB = document.getElementById('cycB');
+      const cycAmp = document.getElementById('cycAmp');
+      if (cycA && cycB && !reduce) {
+        const pairs = [
+          ['Strategy', 'Story'], ['Media', 'Momentum'],
+          ['Purpose', 'Impact'], ['Rika', 'Rekan'],
+        ];
+        let i = 0;
+        setInterval(() => {
+          // FLIP: remember where the & sits, then glide it to its new spot
+          const before = cycAmp ? cycAmp.getBoundingClientRect() : null;
+          cycA.classList.add('out'); cycB.classList.add('out');
+          setTimeout(() => {
+            i = (i + 1) % pairs.length;
+            cycA.textContent = pairs[i][0]; cycB.textContent = pairs[i][1];
+            cycA.classList.remove('out'); cycB.classList.remove('out');
+            if (cycAmp && before) {
+              const after = cycAmp.getBoundingClientRect();
+              const dx = before.left - after.left;
+              const dy = before.top - after.top;
+              cycAmp.style.transition = 'none';
+              cycAmp.style.transform = `translate(${dx}px, ${dy}px)`;
+              void cycAmp.offsetWidth; // force reflow so the jump is instant
+              cycAmp.style.transition = 'transform 1.1s cubic-bezier(.22,.75,.25,1)';
+              cycAmp.style.transform = 'translate(0, 0)';
+            }
+          }, 430);
+        }, 3300);
+      }
+
+      // ambient connection field (canvas) — abstract, non-human
+      const cv = document.getElementById('field') as HTMLCanvasElement | null;
+      if (cv && !reduce) {
+        const ctx = cv.getContext('2d')!;
+        let W = 0, H = 0;
+        const size = () => {
+          const r = cv.parentElement!.getBoundingClientRect();
+          W = cv.width = r.width * devicePixelRatio;
+          H = cv.height = r.height * devicePixelRatio;
+        };
+        size(); addEventListener('resize', size);
+        type Node = { x: number; y: number; vx: number; vy: number; r: number };
+        const nodes: Node[] = Array.from({ length: 28 }, () => ({
+          x: Math.random(), y: Math.random(),
+          vx: (Math.random() - .5) * .00045, vy: (Math.random() - .5) * .00045,
+          r: Math.random() * 1.6 + .9,
+        }));
+        const draw = () => {
+          ctx.clearRect(0, 0, W, H);
+          for (const n of nodes) {
+            n.x += n.vx; n.y += n.vy;
+            if (n.x < 0 || n.x > 1) n.vx *= -1;
+            if (n.y < 0 || n.y > 1) n.vy *= -1;
+          }
+          ctx.lineWidth = devicePixelRatio;
+          const reach = W * 0.13;
+          for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+              const a = nodes[i], b = nodes[j];
+              const dx = (a.x - b.x) * W, dy = (a.y - b.y) * H;
+              const d = Math.hypot(dx, dy);
+              if (d < reach) {
+                ctx.strokeStyle = `rgba(22,160,146,${(0.11 * (1 - d / reach)).toFixed(3)})`;
+                ctx.beginPath(); ctx.moveTo(a.x * W, a.y * H); ctx.lineTo(b.x * W, b.y * H); ctx.stroke();
+              }
+            }
+          }
+          for (const n of nodes) {
+            ctx.fillStyle = 'rgba(22,160,146,.22)';
+            ctx.beginPath(); ctx.arc(n.x * W, n.y * H, n.r * devicePixelRatio, 0, 7); ctx.fill();
+          }
+          requestAnimationFrame(draw);
+        };
+        draw();
+      }
+
+      // ghost ampersand scroll parallax
+      const ghost = document.querySelector<HTMLElement>('.ghostamp');
+      if (ghost && !reduce) {
+        addEventListener('scroll', () => {
+          ghost.style.transform = `translateY(${scrollY * -0.08}px) rotate(${scrollY * 0.004}deg)`;
+        }, { passive: true });
+      }
+
+      // share-of-voice gauges
+      const gauges = document.querySelectorAll('.gauge');
+      const fillGauge = (g: Element) =>
+        g.querySelectorAll<HTMLElement>('.gbar i').forEach((bar, k) =>
+          setTimeout(() => { bar.style.width = (bar.dataset.w || '0') + '%'; }, 250 + k * 120)
+        );
+      if (!reduce && 'IntersectionObserver' in window) {
+        const gio = new IntersectionObserver((es) => {
+          es.forEach((e) => { if (e.isIntersecting) { gio.unobserve(e.target); fillGauge(e.target); } });
+        }, { threshold: 0.4 });
+        gauges.forEach((g) => gio.observe(g));
+      } else {
+        gauges.forEach((g) => g.querySelectorAll<HTMLElement>('.gbar i')
+          .forEach((bar) => { bar.style.width = (bar.dataset.w || '0') + '%'; }));
+      }
+
+      // timeline progress line
+      const tlWrap = document.querySelector<HTMLElement>('.timeline');
+      const tlProg = document.querySelector<HTMLElement>('.timeline .progress');
+      if (tlWrap && tlProg && !reduce) {
+        addEventListener('scroll', () => {
+          const r = tlWrap.getBoundingClientRect();
+          const done = Math.min(Math.max(innerHeight * 0.72 - r.top, 0), r.height);
+          tlProg.style.height = done + 'px';
+        }, { passive: true });
+      }
+    </script>
+  </body>
+</html>

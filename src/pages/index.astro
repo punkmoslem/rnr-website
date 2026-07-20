@@ -1,0 +1,153 @@
+---
+import Base from '../layouts/Base.astro';
+
+const clients = [
+  'Samsung', 'Bayer', 'MSD', 'Bosch', 'JEC', 'Combiphar', 'ASUS',
+  'Frisian Flag', 'Mercedes-Benz', 'Citi', 'OPPO', 'Jotun',
+];
+---
+<Base
+  title="R&R Communications — Communication with purpose | Jakarta"
+  description="Jakarta's independent communication consultancy since 2000. Media, influencer and crisis management — the & between trusted brands and the people they serve."
+>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="field"><canvas id="field"></canvas></div>
+    <span class="ghostamp" aria-hidden="true">&amp;</span>
+    <div class="wrap intro">
+      <span class="kicker">Jakarta · est. 2000 · Communication with purpose</span>
+      <h1>
+        <span class="cyc" id="cycA">Strategy</span>
+        <i class="fancy-amp" id="cycAmp">&amp;</i>
+        <span class="cyc" id="cycB">Story</span><br />
+        is how brands are believed.
+      </h1>
+      <p class="lede">For 26 years, R&amp;R Communications has been the "&amp;" between
+      Indonesia's most trusted brands and the people they serve — building narratives
+      that earn belief, not just coverage.</p>
+      <div class="cta-row">
+        <a class="btn" href="/said-and-done">Said &amp; Done <span class="bsub">— The Work</span> <span class="arr">→</span></a>
+        <a class="btn ghost" href="/then-and-now">Then &amp; Now — since 2000</a>
+      </div>
+
+      <div class="stats rv-stagger">
+        <div class="stat"><div class="n"><i data-count="26">0</i></div><div class="l">Years in practice</div></div>
+        <div class="stat"><div class="n"><span data-count="2000" data-suffix="+">0</span></div><div class="l">Projects managed</div></div>
+        <div class="stat"><div class="n"><span data-count="150" data-suffix="+">0</span></div><div class="l">Brands served</div></div>
+        <div class="stat"><div class="n"><span data-count="100000" data-suffix="+">0</span></div><div class="l">Media clips earned</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENT MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      {[...clients, ...clients].map((c) => <span>{c}</span>)}
+    </div>
+  </div>
+
+  <!-- ============ EXPERTISE ============ -->
+  <section class="sect">
+    <div class="wrap">
+      <div class="rv">
+        <span class="kicker">Ways &amp; Means</span>
+        <h2 class="display">Three ways we become your <i class="fancy-amp">&amp;</i></h2>
+        <p class="lede">Every service is a connection we manage on your behalf — with media,
+        with creators, and with the public when it matters most.</p>
+      </div>
+      <div class="xcards rv-stagger">
+        <a class="xcard" href="/ways-and-means#media">
+          <span class="xamp" aria-hidden="true">&amp;</span>
+          <h3>Brand <i class="fancy-amp">&amp;</i> Media</h3>
+          <p>Press strategy, releases, conferences, exclusives, TV specials and editorial
+          outreach — relationships built over 26 years of front pages.</p>
+          <span class="xm">Media management</span>
+        </a>
+        <a class="xcard" href="/ways-and-means#creators">
+          <span class="xamp" aria-hidden="true">&amp;</span>
+          <h3>Brand <i class="fancy-amp">&amp;</i> Creators</h3>
+          <p>Influencer mapping, KOL relations and 40,000+ collaboration posts —
+          campaigns that sound like people, not adverts.</p>
+          <span class="xm">Influencer management</span>
+        </a>
+        <a class="xcard" href="/ways-and-means#crisis">
+          <span class="xamp" aria-hidden="true">&amp;</span>
+          <h3>Brand <i class="fancy-amp">&amp;</i> Crisis</h3>
+          <p>Problem-based analysis, strategy and real-time response when the story
+          turns — calm hands, straight answers.</p>
+          <span class="xm">Crisis management</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SELECTED WORK ============ -->
+  <section class="sect" style="padding-top:24px">
+    <div class="wrap">
+      <div class="rv">
+        <span class="kicker">Said &amp; Done</span>
+        <h2 class="display">Stories that earned their coverage</h2>
+        <p class="lede">Real campaigns, real rooms, real people — photography from our own
+        documentation, in the house duotone. Hover to step into the room.</p>
+      </div>
+      <div class="wgrid rv-stagger">
+        <a class="wcard" href="/said-and-done#msd">
+          <img src="/img/msd-kelasjurnalis.jpg" alt="MSD and Kemenkes Kelas Jurnalis media event" loading="lazy" />
+          <div class="wcap"><span class="ws">Healthcare · MSD</span><h3>Kelas Jurnalis with Kemenkes</h3><span class="wn">759 media articles</span></div>
+        </a>
+        <a class="wcard" href="/said-and-done#tech">
+          <img src="/img/oppo-findx9.jpg" alt="OPPO Find X9 Series launch event" loading="lazy" />
+          <div class="wcap"><span class="ws">Technology · OPPO</span><h3>Find X9 Series launch</h3><span class="wn">National launch coverage</span></div>
+        </a>
+        <a class="wcard" href="/said-and-done#bayer">
+          <img src="/img/bayer-cimanggis.jpg" alt="Bayer Cimanggis facility expansion announcement" loading="lazy" />
+          <div class="wcap"><span class="ws">Pharma · Bayer</span><h3>Cimanggis expansion, Rp 99 B</h3><span class="wn">215 articles in one semester</span></div>
+        </a>
+        <a class="wcard" href="/said-and-done#industry">
+          <img src="/img/jotun-cikarang.jpg" alt="Jotun water-based paint factory inauguration" loading="lazy" />
+          <div class="wcap"><span class="ws">Industry · Jotun</span><h3>Cikarang factory inauguration</h3><span class="wn">Rp 1 T investment story</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SEEN & SAID TEASER ============ -->
+  <section class="toolband">
+    <div class="wrap sect tight">
+      <div class="cols rv">
+        <div class="tcopy">
+          <span class="kicker">Seen &amp; Said — free check</span>
+          <h2 class="display" style="font-size:clamp(26px,3.6vw,42px)">When AI answers, does it say <span class="amp">your</span> name?</h2>
+          <p class="lede" style="font-size:15.5px">Your next client asks ChatGPT, Gemini, or Claude for a
+          recommendation. Our tool runs the questions that matter for your industry across
+          all three — and shows how often you are the answer, versus your competitors.</p>
+          <form class="tform" action="/seen-and-said" method="get">
+            <input type="text" name="brand" placeholder="Your brand name" aria-label="Your brand name" />
+            <button class="btn teal" type="submit">Check my visibility</button>
+          </form>
+          <p class="tnote">Free teaser scan. The full share-of-voice report arrives by email — that's where we start talking.</p>
+        </div>
+        <div class="tdemo">
+          <div class="gauge">
+            <div class="gt">AI share of voice · sample</div>
+            <div class="gbrand">Your brand &amp; your rivals</div>
+            <div class="grow"><span class="gl">You</span><div class="gbar"><i data-w="64"></i></div><span class="gv">64%</span></div>
+            <div class="grow"><span class="gl">Rival A</span><div class="gbar dim"><i data-w="41"></i></div><span class="gv">41%</span></div>
+            <div class="grow"><span class="gl">Rival B</span><div class="gbar dim"><i data-w="27"></i></div><span class="gv">27%</span></div>
+            <div class="gfoot">Checked across ChatGPT · Gemini · Claude — 24 industry prompts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="ctaband">
+    <span class="drift" aria-hidden="true">&amp;</span>
+    <div class="wrap rv">
+      <h2>Let's put an <i class="fancy-amp">&amp;</i> between us.</h2>
+      <p>Communication with purpose — for stories that deserve to be believed.</p>
+      <a class="btn teal" href="/you-and-us">Start a conversation <span class="arr">→</span></a>
+    </div>
+  </section>
+</Base>
