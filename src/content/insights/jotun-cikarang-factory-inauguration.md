@@ -5,8 +5,6 @@ pubDate: 2026-05-28
 type: press-release
 client: "Jotun Indonesia"
 tags: ["Industry", "Manufacturing"]
-image: "/img/news/jotun-cikarang-inauguration.jpg"
-imageAlt: "Jotun meresmikan pabrik cat berbasis air senilai Rp 1 triliun di Cikarang"
 ---
 
 **CIKARANG, 28 May 2026** — Jotun Indonesia today officially inaugurated its new water-based paint factory in Cikarang, a Rp 1 trillion investment announced as part of the company's centenary celebrations — 100 years of Jotun globally, and a long-term commitment to Indonesia.

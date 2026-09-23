@@ -5,8 +5,6 @@ pubDate: 2026-04-05
 type: press-release
 client: "AQUA (Danone)"
 tags: ["Community", "CSR"]
-image: "/img/news/aqua-alfamart-ramadan.jpg"
-imageAlt: "AQUA dan Alfamart ajak masyarakat rawat dan ademkan masjid usai Ramadan"
 ---
 
 **JAKARTA, April 2026** — AQUA dan Alfamart meluncurkan program komunitas **"Ajak Masyarakat Rawat dan Ademkan Masjid Usai Ramadan"** — mengajak warga di berbagai kota untuk bersama-sama merawat dan menghijaukan lingkungan masjid pasca bulan Ramadan.

@@ -5,8 +5,6 @@ pubDate: 2026-07-15
 type: press-release
 client: "OPPO Indonesia"
 tags: ["Technology", "Product Launch"]
-image: "/img/news/oppo-find-x9-ultra-ecosystem.jpg"
-imageAlt: "OPPO Find X9 Ultra, Find X9s, Enco Clip2 dan Watch X3 resmi hadir di Indonesia"
 ---
 
 **JAKARTA, Juli 2026** — OPPO meluncurkan rangkaian produk premium terbaru di Indonesia: **Find X9 Ultra**, **Find X9s**, earbuds **Enco Clip2**, dan smartwatch **Watch X3** — hadir sebagai **travel companion andalan untuk kreasi konten modern**.

@@ -5,8 +5,6 @@ pubDate: 2026-08-13
 type: press-release
 client: "MSD Indonesia"
 tags: ["Healthcare", "Public Health"]
-image: "/img/news/msd-lindungi-anak-pneumonia.jpg"
-imageAlt: "MSD Indonesia edukasi cegah pneumonia — Lindungi Anak Sejak Dini, Bandung"
 ---
 
 **BANDUNG, 13 Agustus 2026** — MSD Indonesia menggelar program edukasi **"Lindungi Anak Sejak Dini: Bantu Cegah Pneumonia — Berikan Perlindungan Pada Anak Sejak Dini"** di Bandung, mengajak tenaga kesehatan, media, dan masyarakat untuk meningkatkan kesadaran tentang pentingnya pencegahan pneumonia pada anak melalui vaksinasi.
