@@ -4,7 +4,7 @@ description: "R&R Communications wins Indonesia PR of the Year 2026 — PR Pract
 pubDate: 2026-08-18
 type: press-release
 tags: ["Award", "Indonesia PR of the Year"]
-image: "/img/news/rnr-pr-of-the-year-2026-stage.webp"
+image: "/img/news/rnr-pr-of-the-year-2026-stage-original.webp"
 imageAlt: "R&R Communications receives PR Practitioner of the Year 2026 at the Indonesia PR of the Year ceremony, LSPR Campus B Jakarta"
 image2: "/img/news/rnr-pr-of-the-year-2026-cert.webp"
 image2Alt: "PR Practitioner of the Year 2026 certificate — R&R Public Relations, PR Agency category, Journalist Choice"
