@@ -5,6 +5,8 @@ pubDate: 2026-04-22
 type: press-release
 client: "MSD Indonesia"
 tags: ["Healthcare", "Public Health"]
+image: "/img/news/msd-kemenkes-hpv-boys.jpg"
+imageAlt: "MSD Indonesia dan Kemenkes perluas edukasi HPV pada anak laki-laki"
 ---
 
 **JAKARTA, 22 April 2026** — MSD Indonesia, together with the Ministry of Health of the Republic of Indonesia, convened Kelas Jurnalis 2026, a journalism class dedicated to deepening media understanding of HPV (Human Papillomavirus) prevention in boys — a critical step in broadening national immunization awareness beyond cervical cancer prevention in girls.

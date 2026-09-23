@@ -5,6 +5,8 @@ pubDate: 2026-08-08
 type: press-release
 client: "PT Anugerah Pharmindo Lestari (APL)"
 tags: ["Healthcare", "Public Health"]
+image: "/img/news/apl-berani-bicara-berat.jpg"
+imageAlt: "APL Perkuat Edukasi tentang Obesitas melalui Kampanye Berani Bicara Berat"
 ---
 
 **JAKARTA, 8 Agustus 2026** — PT Anugerah Pharmindo Lestari (APL), sebuah perusahaan Zuellig Pharma, meluncurkan kampanye edukasi **"Berani Bicara Berat"** — sebuah inisiatif untuk meningkatkan kesadaran masyarakat Indonesia bahwa obesitas adalah kondisi medis kronis yang memerlukan penanganan berbasis bukti, bukan sekadar masalah gaya hidup.

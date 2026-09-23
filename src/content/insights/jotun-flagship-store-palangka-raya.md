@@ -5,6 +5,8 @@ pubDate: 2026-08-01
 type: press-release
 client: "Jotun Indonesia"
 tags: ["Industry", "Retail"]
+image: "/img/news/jotun-flagship-palangka-raya.jpg"
+imageAlt: "Jotun meresmikan flagship store pertama di Palangka Raya"
 ---
 
 **PALANGKA RAYA, Agustus 2026** — Jotun Indonesia meresmikan **flagship store pertama** di Palangka Raya, Kalimantan Tengah — memperluas kehadiran ritel merek cat premium asal Norwegia ini ke wilayah Indonesia Timur.

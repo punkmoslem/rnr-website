@@ -5,6 +5,8 @@ pubDate: 2026-07-22
 type: press-release
 client: "OPPO Indonesia"
 tags: ["Technology", "Product Launch"]
+image: "/img/news/oppo-reno16-series.jpg"
+imageAlt: "OPPO Reno16 Series resmi hadir di Indonesia"
 ---
 
 **JAKARTA, Juli 2026** — OPPO resmi meluncurkan **Reno16 Series** di Indonesia, mengusung tagline **"Bikin Kreativitas Harian Makin Level Up dengan Desain Planet 3D & AI Personal!"** — smartphone terbaru yang memadukan desain trendi dengan kemampuan AI Fotografi Kreatif.

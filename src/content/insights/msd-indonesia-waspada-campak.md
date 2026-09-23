@@ -5,6 +5,8 @@ pubDate: 2026-06-20
 type: press-release
 client: "MSD Indonesia"
 tags: ["Healthcare", "Public Health"]
+image: "/img/news/msd-waspada-campak.jpg"
+imageAlt: "Indonesia Waspada Campak — edukasi MSD Indonesia tentang ancaman campak lintas generasi"
 ---
 
 **JAKARTA, Juni 2026** — MSD Indonesia menggelar program edukasi bertajuk **"Indonesia Waspada Campak: Ancaman Nyata Lintas Generasi, Dari Anak-Anak Hingga Dewasa"** — menyoroti bahwa campak bukan hanya penyakit anak-anak, tetapi juga mengancam kesehatan orang dewasa yang belum memiliki kekebalan memadai.

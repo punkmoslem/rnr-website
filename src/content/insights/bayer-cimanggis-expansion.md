@@ -5,6 +5,8 @@ pubDate: 2026-04-15
 type: press-release
 client: "Bayer Indonesia"
 tags: ["Healthcare", "Pharma"]
+image: "/img/news/bayer-cimanggis-expansion.jpg"
+imageAlt: "Bayer Indonesia inaugurates Rp 99 billion expansion of Cimanggis production facility"
 ---
 
 **DEPOK, 15 April 2026** — Bayer Indonesia today inaugurated the expansion of its Cimanggis production facility, a Rp 99 billion investment that increases production capability for MMS (Multivitamin and Mineral Supplements) lines and strengthens research and development capacity.
