@@ -10,34 +10,67 @@ const clients = [
   title="R&R Communications — Communication with purpose | Jakarta"
   description="Jakarta's independent communication consultancy since 2000. Media, influencer and crisis management — the & between trusted brands and the people they serve."
 >
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="field"><canvas id="field"></canvas></div>
-    <span class="ghostamp" aria-hidden="true">&amp;</span>
-    <div class="wrap intro">
-      <span class="kicker">Jakarta · est. 2000 · Communication with purpose</span>
-      <h1>
-        <span class="cyc" id="cycA">Strategy</span>
-        <i class="fancy-amp" id="cycAmp">&amp;</i>
-        <span class="cyc" id="cycB">Story</span><br />
-        is how brands are believed.
-      </h1>
-      <p class="lede">For 26 years, R&amp;R Communications has been the "&amp;" between
-      Indonesia's most trusted brands and the people they serve — building narratives
-      that earn belief, not just coverage.</p>
-      <div class="cta-row">
-        <a class="btn" href="/said-and-done">Said &amp; Done <span class="bsub">— The Work</span> <span class="arr">→</span></a>
-        <a class="btn ghost" href="/then-and-now">Then &amp; Now — since 2000</a>
-      </div>
+  <!-- ============ HERO CAROUSEL (swipeable: award → regular) ============ -->
+  <div class="hero-carousel" id="heroCarousel">
+    <div class="hero-track" id="heroTrack">
 
-      <div class="stats rv-stagger">
-        <div class="stat"><div class="n"><i data-count="26">0</i></div><div class="l">Years in practice</div></div>
-        <div class="stat"><div class="n"><span data-count="2000" data-suffix="+">0</span></div><div class="l">Projects managed</div></div>
-        <div class="stat"><div class="n"><span data-count="150" data-suffix="+">0</span></div><div class="l">Brands served</div></div>
-        <div class="stat"><div class="n"><span data-count="100000" data-suffix="+">0</span></div><div class="l">Media clips earned</div></div>
-      </div>
+      <!-- SLIDE 1 — Award announcement -->
+      <section class="hero hero-slide award-slide" id="slideAward">
+        <div class="award-bg">
+          <img src="/img/news/rnr-pr-of-the-year-2026-stage.webp" alt="" aria-hidden="true" />
+        </div>
+        <div class="award-veil"></div>
+        <div class="wrap intro">
+          <span class="kicker" style="color:#7FD9CF">New &amp; Newsworthy · August 2026</span>
+          <h1>
+            PR Practitioner<br />
+            of the Year <span class="bigand" style="color:var(--teal-light)">2026</span>
+          </h1>
+          <p class="lede" style="color:#B9CBD2">R&amp;R Communications wins <strong style="color:#fff">Indonesia PR of the Year 2026</strong> —
+          PR Agency category, Journalist Choice — awarded by MIX &amp; SWA. The second time after 2018.</p>
+          <div class="cta-row">
+            <a class="btn teal" href="/then-and-now">Then &amp; Now <span class="bsub">— Our Story</span> <span class="arr">→</span></a>
+            <a class="btn ghost" href="/said-and-done/pen-and-press/rnr-pr-of-the-year-2026" style="color:#E6EDEF;border-color:rgba(185,203,210,.35)">Read the release <span class="arr">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2 — Regular hero -->
+      <section class="hero hero-slide" id="slideMain">
+        <div class="field"><canvas id="field"></canvas></div>
+        <span class="ghostamp" aria-hidden="true">&amp;</span>
+        <div class="wrap intro">
+          <span class="kicker">Jakarta · est. 2000 · Communication with purpose</span>
+          <h1>
+            <span class="cyc" id="cycA">Strategy</span>
+            <i class="fancy-amp" id="cycAmp">&amp;</i>
+            <span class="cyc" id="cycB">Story</span><br />
+            is how brands are believed.
+          </h1>
+          <p class="lede">For 26 years, R&amp;R Communications has been the "&amp;" between
+          Indonesia's most trusted brands and the people they serve — building narratives
+          that earn belief, not just coverage.</p>
+          <div class="cta-row">
+            <a class="btn" href="/said-and-done">Said &amp; Done <span class="bsub">— The Work</span> <span class="arr">→</span></a>
+            <a class="btn ghost" href="/then-and-now">Then &amp; Now — since 2000</a>
+          </div>
+
+          <div class="stats rv-stagger">
+            <div class="stat"><div class="n"><i data-count="26">0</i></div><div class="l">Years in practice</div></div>
+            <div class="stat"><div class="n"><span data-count="2000" data-suffix="+">0</span></div><div class="l">Projects managed</div></div>
+            <div class="stat"><div class="n"><span data-count="150" data-suffix="+">0</span></div><div class="l">Brands served</div></div>
+            <div class="stat"><div class="n"><span data-count="100000" data-suffix="+">0</span></div><div class="l">Media clips earned</div></div>
+          </div>
+        </div>
+      </section>
+
     </div>
-  </section>
+    <!-- carousel dots -->
+    <div class="hero-dots" id="heroDots">
+      <button class="hdot active" data-slide="0" aria-label="Award announcement"></button>
+      <button class="hdot" data-slide="1" aria-label="Homepage"></button>
+    </div>
+  </div>
 
   <!-- ============ CLIENT MARQUEE ============ -->
   <div class="marquee" aria-hidden="true">
